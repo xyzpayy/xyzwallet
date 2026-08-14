@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XYZ Wallet</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Arial, sans-serif; }
+
+    body {
+      background: linear-gradient(160deg, #04101d, #071a2e);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ========== LOGIN & PIN ========== */
+    .login-screen { width: 100%; display: flex; justify-content: center; }
+
+    .login-card {
+      width: 100%; max-width: 420px;
+      background: #0a1626;
+      border: 1px solid rgba(34,211,238,0.25);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 0 40px rgba(14,165,233,0.25);
+      text-align: center; height: fit-content;
+    }
+
+    .login-logo {
+      width: 70px; height: 70px; border-radius: 20px;
+      background: linear-gradient(135deg, #0284c7, #22d3ee);
+      color: white; font-weight: bold; font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+      box-shadow: 0 0 25px rgba(34,211,238,0.6);
+    }
+
+    .login-card h2 { margin-bottom: 4px; color: #e2e8f0; letter-spacing: 1px; }
+    .login-subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 24px; }
+    .login-card label { display: block; text-align: left; font-size: 13px; color: #7dd3fc; margin-bottom: 6px; }
+
+    .login-card input {
+      width: 100%; padding: 12px;
+      border: 1px solid #164e63; background: #081420; color: #e2e8f0;
+      border-radius: 12px; margin-bottom: 14px; font-size: 14px;
+    }
+
+    .login-card button {
+      width: 100%; border: none; border-radius: 12px; padding: 13px;
+      font-size: 14px; font-weight: bold; cursor: pointer;
+      background: linear-gradient(135deg, #0284c7, #22d3ee);
+      color: white;
+      box-shadow: 0 0 18px rgba(34,211,238,0.4);
+    }
+
+    .otp-demo-note {
+      background: rgba(34,211,238,0.08);
+      border: 1px dashed #22d3ee; color: #67e8f9;
+      border-radius: 12px; padding: 10px; font-size: 12px; margin-bottom: 14px;
+      text-align: left;
+    }
+
+    /* ========== MODAL ========== */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(2,8,16,0.75);
+      display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+    }
+
+    .modal-card {
+      background: #0a1626;
+      border: 1px solid rgba(34,211,238,0.25);
+      border-radius: 20px; padding: 24px; width: 100%; max-width: 340px; text-align: center;
+      box-shadow: 0 0 40px rgba(14,165,233,0.3);
+      max-height: 90vh; overflow-y: auto;
+    }
+
+    .modal-card h3 { margin-bottom: 14px; color: #e2e8f0; letter-spacing: 1px; }
+
+    .modal-card input {
+      width: 100%; padding: 12px;
+      border: 1px solid #164e63; background: #081420; color: #e2e8f0;
+      border-radius: 12px; margin-bottom: 12px; font-size: 14px;
+    }
+
+    .modal-card .pin-input { text-align: center; letter-spacing: 2px; }
+
+    .modal-card button {
+      width: 100%; border: none; border-radius: 12px; padding: 12px;
+      font-size: 14px; font-weight: bold; cursor: pointer;
+      background: linear-gradient(135deg, #0284c7, #22d3ee); color: white;
+    }
+
+    .btn-secondary { background: #1e293b !important; color: #94a3b8 !important; margin-top: 8px; box-shadow: none !important; }
+
+    select {
+      width: 100%; padding: 12px;
+      border: 1px solid #164e63; background: #081420; color: #e2e8f0;
+      border-radius: 12px; margin-bottom: 12px; font-size: 14px;
+    }
+
+    input[type="date"] { color-scheme: dark; }
+
+    /* ========== APLIKASI UTAMA ========== */
+    .app {
+      width: 100%; max-width: 420px;
+      background: #0a1626;
+      border: 1px solid rgba(34,211,238,0.25);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(14,165,233,0.25);
+      height: fit-content;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #082f49, #0369a1 60%, #06b6d4);
+      color: white; padding: 24px 20px;
+    }
+
+    .header h1 { font-size: 22px; letter-spacing: 2px; text-transform: uppercase; }
+
+    .datetime {
+      margin-top: 6px; font-size: 13px; opacity: 0.95; letter-spacing: 1px;
+      font-family: Consolas, Menlo, monospace;
+      color: #a5f3fc;
+    }
+
+    .balance-card {
+      margin-top: 18px; background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(165,243,252,0.25);
+      border-radius: 18px; padding: 18px;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+
+    .balance-left { flex: 1; text-align: left; }
+    .balance-label { font-size: 12px; opacity: 0.85; margin-bottom: 6px; letter-spacing: 2px; text-transform: uppercase; }
+
+    .balance-value {
+      font-size: 30px; font-weight: bold;
+      font-family: Consolas, Menlo, monospace;
+      text-shadow: 0 0 14px rgba(103,232,249,0.8);
+    }
+
+    .balance-actions { display: flex; gap: 10px; }
+
+    .action-btn {
+      width: 80px; background: rgba(255,255,255,0.12); border: 1px solid rgba(165,243,252,0.25);
+      border-radius: 14px; padding: 10px 6px; color: white;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      cursor: pointer; font-size: 11px; font-weight: bold;
+    }
+    .action-btn:hover { background: rgba(255,255,255,0.22); }
+
+    .icon-circle {
+      width: 34px; height: 34px; background: #e0f2fe; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px rgba(103,232,249,0.7);
+    }
+
+    .page-header { background: linear-gradient(135deg, #082f49, #0369a1 60%, #06b6d4); color: white; padding: 20px; }
+    .page-header h2 { font-size: 20px; letter-spacing: 2px; text-transform: uppercase; }
+
+    .content { padding: 20px; }
+
+    .home-section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .home-section-head .section-title { margin: 0; }
+
+    .link-btn { width: auto; background: none; color: #22d3ee; font-size: 12px; padding: 0; }
+
+    .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #e2e8f0; letter-spacing: 1px; }
+
+    /* GRID PEMBAYARAN 4 KOLOM */
+    .ppob-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+
+    .ppob-item {
+      background: #0d1f33; border: 1px solid rgba(34,211,238,0.15);
+      border-radius: 14px; padding: 10px 4px; color: #a5f3fc;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer; font-size: 10px; font-weight: bold;
+    }
+    .ppob-item:hover { border-color: #22d3ee; box-shadow: 0 0 12px rgba(34,211,238,0.3); }
+    .ppob-item svg { width: 20px; height: 20px; }
+
+    .card {
+      background: #0d1f33; border: 1px solid rgba(34,211,238,0.15);
+      border-radius: 16px; padding: 16px; margin-bottom: 16px;
+    }
+
+    label { display: block; font-size: 13px; color: #7dd3fc; margin-bottom: 6px; text-align: left; }
+
+    input {
+      width: 100%; padding: 12px;
+      border: 1px solid #164e63; background: #081420; color: #e2e8f0;
+      border-radius: 12px; margin-bottom: 12px; font-size: 14px;
+    }
+
+    button {
+      width: 100%; border: none; border-radius: 12px; padding: 12px;
+      font-size: 14px; font-weight: bold; cursor: pointer;
+    }
+
+    .btn-topup {
+      background: linear-gradient(135deg, #059669, #34d399);
+      color: white; margin-bottom: 8px;
+      box-shadow: 0 0 14px rgba(52,211,153,0.35);
+    }
+
+    .btn-transfer {
+      background: linear-gradient(135deg, #0284c7, #22d3ee);
+      color: white;
+      box-shadow: 0 0 14px rgba(34,211,238,0.4);
+    }
+
+    .btn-outline { background: transparent; color: #22d3ee; border: 2px solid #22d3ee; margin-bottom: 10px; }
+
+    .transaction-list { max-height: 380px; overflow-y: auto; }
+
+    .transaction-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px; border-radius: 12px;
+      background: #0f2438; border: 1px solid rgba(34,211,238,0.1);
+      margin-bottom: 10px;
+    }
+
+    .transaction-info h4 { font-size: 14px; margin-bottom: 4px; color: #e2e8f0; }
+    .transaction-info p { font-size: 12px; color: #7c93a8; }
+
+    .amount-positive { color: #34d399; font-weight: bold; font-family: Consolas, Menlo, monospace; }
+    .amount-negative { color: #fb7185; font-weight: bold; font-family: Consolas, Menlo, monospace; }
+
+    .empty-state { text-align: center; color: #64748b; font-size: 13px; padding: 20px 0; }
+
+    #qrCanvas { display: block; margin: 0 auto 8px; background: white; border-radius: 12px; }
+    .qr-note { font-size: 11px; color: #64748b; margin-bottom: 14px; text-align: center; }
+
+    .profile-card { text-align: center; }
+    .profile-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7, #22d3ee);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 10px; color: white;
+      box-shadow: 0 0 20px rgba(34,211,238,0.6);
+    }
+    .profile-card h3 { color: #e2e8f0; margin-bottom: 4px; font-family: Consolas, Menlo, monospace; }
+    .profile-card p { font-size: 12px; color: #94a3b8; }
+
+    /* ========== BOTTOM NAVIGATION ========== */
+    .bottom-nav { display: flex; border-top: 1px solid rgba(34,211,238,0.2); background: #081420; }
+
+    .nav-item {
+      flex: 1; background: none; border: none; padding: 10px 4px 8px;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      font-size: 9px; color: #64748b; cursor: pointer; font-weight: bold; letter-spacing: 1px;
+    }
+
+    .nav-item.active { color: #22d3ee; text-shadow: 0 0 10px rgba(34,211,238,0.8); }
+    .nav-item svg { width: 20px; height: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HALAMAN LOGIN ========== -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">XYZ</div>
+      <h2>XYZ Wallet</h2>
+      <p class="login-subtitle">Masuk untuk melanjutkan</p>
+
+      <label for="phoneInput">Nomor HP</label>
+      <input type="tel" id="phoneInput" placeholder="Contoh: 08123456789" />
+      <button onclick="sendOtp()">Kirim Kode OTP</button>
+
+      <div id="otpSection" class="hidden" style="margin-top: 18px;">
+        <div class="otp-demo-note" id="otpDemoNote"></div>
+        <label for="otpInput">Kode OTP</label>
+        <input type="text" id="otpInput" maxlength="6" placeholder="Masukkan 6 digit OTP" />
+        <button onclick="login()">Masuk</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HALAMAN BUAT PIN ========== -->
+  <div class="login-screen hidden" id="pinSetupScreen">
+    <div class="login-card">
+      <div class="login-logo">PIN</div>
+      <h2>Buat PIN Transaksi</h2>
+      <p class="login-subtitle">PIN 6 digit digunakan untuk mengamankan transaksimu</p>
+
+      <label for="newPinInput">PIN Baru (6 digit)</label>
+      <input type="password" id="newPinInput" maxlength="6" inputmode="numeric" placeholder="******" />
+
+      <label for="confirmPinInput">Ulangi PIN</label>
+      <input type="password" id="confirmPinInput" maxlength="6" inputmode="numeric" placeholder="******" />
+
+      <button onclick="savePin()">Simpan PIN</button>
+    </div>
+  </div>
+
+  <!-- ========== APLIKASI UTAMA ========== -->
+  <div class="app hidden" id="appScreen">
+
+    <!-- ===== HOME ===== -->
+    <div class="page" id="pageHome">
+      <div class="header">
+        <h1>XYZ Wallet</h1>
+        <div class="datetime" id="datetimeDisplay">Memuat waktu...</div>
+
+        <div class="balance-card">
+          <div class="balance-left">
+            <div class="balance-label">Saldo Anda</div>
+            <div class="balance-value" id="balanceDisplay">Rp 0</div>
+          </div>
+
+          <div class="balance-actions">
+            <button class="action-btn" onclick="goDeposit()" title="Deposit">
+              <span class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M5 21h14"/>
+                </svg>
+              </span>
+              Deposit
+            </button>
+
+            <button class="action-btn" onclick="goWithdraw()" title="Withdraw">
+              <span class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21V9"/><path d="M6 13l6-6 6 6"/><path d="M5 3h14"/>
+                </svg>
+              </span>
+              Withdraw
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="section-title">Pembayaran & Tagihan</div>
+        <div class="ppob-grid">
+          <button class="ppob-item" onclick="openListrik()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+            Listrik
+          </button>
+
+          <button class="ppob-item" onclick="openPdam()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>
+            PDAM
+          </button>
+
+          <button class="ppob-item" onclick="openPulsa()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            Pulsa
+          </button>
+
+          <button class="ppob-item" onclick="openXyzpay()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+            XYZ Pay
+          </button>
+
+          <button class="ppob-item" onclick="openEmoney()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            E-Money
+          </button>
+
+          <button class="ppob-item" onclick="openTicket('pesawat')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            Pesawat
+          </button>
+
+          <button class="ppob-item" onclick="openTicket('kereta')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 9h14"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/><path d="M8 16l-2 4"/><path d="M16 16l2 4"/></svg>
+            Kereta
+          </button>
+
+          <button class="ppob-item" onclick="openTicket('bus')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16"/><circle cx="8.5" cy="17.5" r="1.5"/><circle cx="15.5" cy="17.5" r="1.5"/></svg>
+            Bus
+          </button>
+        </div>
+
+        <div class="home-section-head">
+          <div class="section-title">Transaksi Terakhir</div>
+          <button class="link-btn" onclick="switchTab('aktivitas')">Lihat Semua</button>
+        </div>
+        <div id="homeTransactionList">
+          <div class="empty-state">Belum ada transaksi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== AKTIVITAS ===== -->
+    <div class="page hidden" id="pageAktivitas">
+      <div class="page-header"><h2>Aktivitas</h2></div>
+      <div class="content">
+        <div class="transaction-list" id="transactionList">
+          <div class="empty-state">Belum ada transaksi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== QRIS ===== -->
+    <div class="page hidden" id="pageQris">
+      <div class="page-header"><h2>QRIS</h2></div>
+      <div class="content">
+        <div class="card">
+          <canvas id="qrCanvas" width="168" height="168"></canvas>
+          <p class="qr-note">QR demo untuk tampilan saja</p>
+
+          <label for="merchantInput">Nama Merchant</label>
+          <input id="merchantInput" value="Kopi XYZ" />
+
+          <label for="qrisAmount">Nominal Pembayaran</label>
+          <input type="number" id="qrisAmount" placeholder="Contoh: 25000" min="1" />
+
+          <button class="btn-transfer" onclick="payQris()">Bayar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== DOMPET ===== -->
+    <div class="page hidden" id="pageDompet">
+      <div class="page-header"><h2>Dompet</h2></div>
+      <div class="content">
+        <div class="section-title">Top Up Simulasi</div>
+        <div class="card">
+          <label for="topupAmount">Nominal Top Up</label>
+          <input type="number" id="topupAmount" placeholder="Contoh: 50000" min="1" />
+          <button class="btn-topup" onclick="topUp()">Top Up</button>
+        </div>
+
+        <div class="section-title">Transfer Simulasi</div>
+        <div class="card">
+          <label for="targetName">Nama Tujuan</label>
+          <input type="text" id="targetName" placeholder="Contoh: Nurlaili" />
+
+          <label for="transferAmount">Nominal Transfer</label>
+          <input type="number" id="transferAmount" placeholder="Contoh: 20000" min="1" />
+
+          <button class="btn-transfer" onclick="startTransfer()">Transfer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROFIL ===== -->
+    <div class="page hidden" id="pageProfil">
+      <div class="page-header"><h2>Profil</h2></div>
+      <div class="content">
+        <div class="card profile-card">
+          <div class="profile-avatar">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+            </svg>
+          </div>
+          <h3 id="profilePhone">-</h3>
+          <p>Pengguna XYZ Wallet</p>
+        </div>
+
+        <button class="btn-outline" onclick="openPinChange()">Ganti PIN Transaksi</button>
+        <button class="btn-transfer" onclick="logout()">Keluar</button>
+      </div>
+    </div>
+
+    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" id="nav-home" onclick="switchTab('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        HOME
+      </button>
+      <button class="nav-item" id="nav-aktivitas" onclick="switchTab('aktivitas')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        AKTIVITAS
+      </button>
+      <button class="nav-item" id="nav-qris" onclick="switchTab('qris')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3z"/><path d="M18 18h3v3h-3z"/></svg>
+        QRIS
+      </button>
+      <button class="nav-item" id="nav-dompet" onclick="switchTab('dompet')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M15 15h3"/></svg>
+        DOMPET
+      </button>
+      <button class="nav-item" id="nav-profil" onclick="switchTab('profil')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        PROFIL
+      </button>
+    </nav>
+  </div>
+
+  <!-- ========== POPUP PIN ========== -->
+  <div class="modal-overlay hidden" id="pinModal">
+    <div class="modal-card">
+      <h3>Masukkan PIN Transaksi</h3>
+      <input type="password" id="pinModalInput" class="pin-input" maxlength="6" inputmode="numeric" placeholder="******" />
+      <button onclick="confirmPin()">Konfirmasi</button>
+      <button class="btn-secondary" onclick="closePinModal()">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP GANTI PIN ========== -->
+  <div class="modal-overlay hidden" id="pinChangeModal">
+    <div class="modal-card">
+      <h3>Ganti PIN</h3>
+      <input type="password" id="oldPinInput" class="pin-input" maxlength="6" placeholder="PIN lama" />
+      <input type="password" id="newPinChangeInput" class="pin-input" maxlength="6" placeholder="PIN baru 6 digit" />
+      <input type="password" id="confirmPinChangeInput" class="pin-input" maxlength="6" placeholder="Ulangi PIN baru" />
+      <button onclick="changePin()">Simpan</button>
+      <button class="btn-secondary" onclick="closePinChange()">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP LISTRIK ========== -->
+  <div class="modal-overlay hidden" id="listrikModal">
+    <div class="modal-card">
+      <h3>⚡ Token Listrik</h3>
+      <label>ID Pelanggan / Nomor Meter</label>
+      <input type="text" id="listrikId" inputmode="numeric" maxlength="12" placeholder="Contoh: 123456789012" />
+      <label>Nominal Token</label>
+      <select id="listrikNominal">
+        <option value="20000">Rp 20.000</option>
+        <option value="50000">Rp 50.000</option>
+        <option value="100000">Rp 100.000</option>
+        <option value="200000">Rp 200.000</option>
+        <option value="500000">Rp 500.000</option>
+      </select>
+      <button onclick="payListrik()">Beli Token</button>
+      <button class="btn-secondary" onclick="closeModal('listrikModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP PDAM ========== -->
+  <div class="modal-overlay hidden" id="pdamModal">
+    <div class="modal-card">
+      <h3>💧 Tagihan PDAM</h3>
+      <label>Nomor Pelanggan PDAM</label>
+      <input type="text" id="pdamId" inputmode="numeric" maxlength="10" placeholder="Contoh: 08123456" />
+      <div class="otp-demo-note hidden" id="pdamBillInfo"></div>
+      <button onclick="cekTagihanPdam()">Cek Tagihan</button>
+      <button onclick="payPdam()">Bayar Tagihan</button>
+      <button class="btn-secondary" onclick="closeModal('pdamModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP PULSA ========== -->
+  <div class="modal-overlay hidden" id="pulsaModal">
+    <div class="modal-card">
+      <h3>📱 Beli Pulsa</h3>
+      <label>Nomor HP</label>
+      <input type="tel" id="pulsaPhone" inputmode="numeric" maxlength="13" placeholder="Contoh: 08123456789" />
+      <label>Nominal Pulsa</label>
+      <select id="pulsaNominal">
+        <option value="5000">Rp 5.000</option>
+        <option value="10000">Rp 10.000</option>
+        <option value="25000">Rp 25.000</option>
+        <option value="50000">Rp 50.000</option>
+        <option value="100000">Rp 100.000</option>
+      </select>
+      <button onclick="buyPulsa()">Beli Pulsa</button>
+      <button class="btn-secondary" onclick="closeModal('pulsaModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP XYZ PAY ========== -->
+  <div class="modal-overlay hidden" id="xyzpayModal">
+    <div class="modal-card">
+      <h3>🚀 XYZ Pay</h3>
+      <label>Nomor HP Pengguna XYZ Tujuan</label>
+      <input type="tel" id="xyzpayPhone" inputmode="numeric" maxlength="13" placeholder="Contoh: 08123456789" />
+      <label>Nominal Pembayaran</label>
+      <input type="number" id="xyzpayAmount" min="1" placeholder="Contoh: 75000" />
+      <button onclick="payXyzpay()">Bayar</button>
+      <button class="btn-secondary" onclick="closeModal('xyzpayModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP E-MONEY ========== -->
+  <div class="modal-overlay hidden" id="emoneyModal">
+    <div class="modal-card">
+      <h3>💳 Top Up E-Money</h3>
+      <label>Penyedia</label>
+      <select id="emoneyProvider">
+        <option value="GoPay">GoPay</option>
+        <option value="OVO">OVO</option>
+        <option value="DANA">DANA</option>
+        <option value="ShopeePay">ShopeePay</option>
+        <option value="LinkAja">LinkAja</option>
+      </select>
+      <label>Nomor HP Tujuan</label>
+      <input type="tel" id="emoneyPhone" inputmode="numeric" maxlength="13" placeholder="Contoh: 08123456789" />
+      <label>Nominal Top Up</label>
+      <select id="emoneyNominal">
+        <option value="50000">Rp 50.000</option>
+        <option value="100000">Rp 100.000</option>
+        <option value="200000">Rp 200.000</option>
+        <option value="300000">Rp 300.000</option>
+        <option value="500000">Rp 500.000</option>
+      </select>
+      <button onclick="payEmoney()">Top Up</button>
+      <button class="btn-secondary" onclick="closeModal('emoneyModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP TIKET PESAWAT ========== -->
+  <div class="modal-overlay hidden" id="pesawatModal">
+    <div class="modal-card">
+      <h3>✈️ Tiket Pesawat</h3>
+      <label>Kota Asal</label>
+      <input type="text" id="pesawatFrom" placeholder="Contoh: Jakarta" />
+      <label>Kota Tujuan</label>
+      <input type="text" id="pesawatTo" placeholder="Contoh: Surabaya" />
+      <label>Tanggal Berangkat</label>
+      <input type="date" id="pesawatDate" />
+      <label>Jumlah Penumpang</label>
+      <input type="number" id="pesawatPax" min="1" max="10" value="1" />
+      <div class="otp-demo-note hidden" id="pesawatQuote"></div>
+      <button onclick="cekHargaTiket('pesawat')">Cek Harga</button>
+      <button onclick="buyTicket('pesawat')">Beli Tiket</button>
+      <button class="btn-secondary" onclick="closeModal('pesawatModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP TIKET KERETA ========== -->
+  <div class="modal-overlay hidden" id="keretaModal">
+    <div class="modal-card">
+      <h3>🚆 Tiket Kereta Api</h3>
+      <label>Kota Asal</label>
+      <input type="text" id="keretaFrom" placeholder="Contoh: Bandung" />
+      <label>Kota Tujuan</label>
+      <input type="text" id="keretaTo" placeholder="Contoh: Yogyakarta" />
+      <label>Tanggal Berangkat</label>
+      <input type="date" id="keretaDate" />
+      <label>Jumlah Penumpang</label>
+      <input type="number" id="keretaPax" min="1" max="10" value="1" />
+      <div class="otp-demo-note hidden" id="keretaQuote"></div>
+      <button onclick="cekHargaTiket('kereta')">Cek Harga</button>
+      <button onclick="buyTicket('kereta')">Beli Tiket</button>
+      <button class="btn-secondary" onclick="closeModal('keretaModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP TIKET BUS ========== -->
+  <div class="modal-overlay hidden" id="busModal">
+    <div class="modal-card">
+      <h3>🚌 Tiket Bus</h3>
+      <label>Kota Asal</label>
+      <input type="text" id="busFrom" placeholder="Contoh: Semarang" />
+      <label>Kota Tujuan</label>
+      <input type="text" id="busTo" placeholder="Contoh: Malang" />
+      <label>Tanggal Berangkat</label>
+      <input type="date" id="busDate" />
+      <label>Jumlah Penumpang</label>
+      <input type="number" id="busPax" min="1" max="10" value="1" />
+      <div class="otp-demo-note hidden" id="busQuote"></div>
+      <button onclick="cekHargaTiket('bus')">Cek Harga</button>
+      <button onclick="buyTicket('bus')">Beli Tiket</button>
+      <button class="btn-secondary" onclick="closeModal('busModal')">Batal</button>
+    </div>
+  </div>
+
+  <script>
+    let balance = 0;
+    let transactions = [];
+    let generatedOtp = null;
+    let pendingAction = null;
+    let pdamBill = 0;
+    let ticketQuote = { type: null, price: 0, label: "" };
+
+    /* ========== DATA LOKAL ========== */
+    function saveState() {
+      localStorage.setItem("xyz_balance", String(balance));
+      localStorage.setItem("xyz_transactions", JSON.stringify(transactions));
+    }
+
+    function loadState() {
+      balance = Number(localStorage.getItem("xyz_balance") || 0);
+      try { transactions = JSON.parse(localStorage.getItem("xyz_transactions") || "[]"); }
+      catch (e) { transactions = []; }
+    }
+
+    /* ========== NAVIGASI ========== */
+    function switchTab(tab) {
+      ["pageHome", "pageAktivitas", "pageQris", "pageDompet", "pageProfil"]
+        .forEach(id => document.getElementById(id).classList.add("hidden"));
+
+      const map = { home: "pageHome", aktivitas: "pageAktivitas", qris: "pageQris", dompet: "pageDompet", profil: "pageProfil" };
+      document.getElementById(map[tab]).classList.remove("hidden");
+
+      document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+      document.getElementById("nav-" + tab).classList.add("active");
+
+      if (tab === "qris") drawFakeQR();
+      if (tab === "profil") renderProfile();
+    }
+
+    function closeModal(id) { document.getElementById(id).classList.add("hidden"); }
+
+    /* ========== LOGIN ========== */
+    function sendOtp() {
+      const phone = document.getElementById("phoneInput").value.trim();
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP yang valid (diawali 0, 10-13 digit)."); return; }
+      generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+      document.getElementById("otpDemoNote").textContent = "OTP demo Anda: " + generatedOtp;
+      document.getElementById("otpSection").classList.remove("hidden");
+    }
+
+    function login() {
+      const code = document.getElementById("otpInput").value.trim();
+      if (code === generatedOtp && generatedOtp !== null) {
+        localStorage.setItem("xyz_phone", document.getElementById("phoneInput").value.trim());
+        document.getElementById("loginScreen").classList.add("hidden");
+        if (!localStorage.getItem("xyz_pin")) {
+          document.getElementById("pinSetupScreen").classList.remove("hidden");
+        } else {
+          document.getElementById("appScreen").classList.remove("hidden");
+          switchTab("home");
+        }
+      } else {
+        alert("Kode OTP salah. Coba lagi.");
+      }
+    }
+
+    function logout() {
+      document.getElementById("appScreen").classList.add("hidden");
+      document.getElementById("loginScreen").classList.remove("hidden");
+      document.getElementById("otpInput").value = "";
+      document.getElementById("otpSection").classList.add("hidden");
+      generatedOtp = null;
+    }
+
+    /* ========== PIN ========== */
+    function savePin() {
+      const pin1 = document.getElementById("newPinInput").value.trim();
+      const pin2 = document.getElementById("confirmPinInput").value.trim();
+      if (!/^[0-9]{6}$/.test(pin1)) { alert("PIN harus 6 digit angka."); return; }
+      if (pin1 !== pin2) { alert("Konfirmasi PIN tidak sama."); return; }
+      localStorage.setItem("xyz_pin", pin1);
+      document.getElementById("pinSetupScreen").classList.add("hidden");
+      document.getElementById("appScreen").classList.remove("hidden");
+      switchTab("home");
+      alert("PIN berhasil dibuat!");
+    }
+
+    function openPinChange() {
+      document.getElementById("oldPinInput").value = "";
+      document.getElementById("newPinChangeInput").value = "";
+      document.getElementById("confirmPinChangeInput").value = "";
+      document.getElementById("pinChangeModal").classList.remove("hidden");
+    }
+    function closePinChange() { document.getElementById("pinChangeModal").classList.add("hidden"); }
+
+    function changePin() {
+      const oldP = document.getElementById("oldPinInput").value.trim();
+      const newP = document.getElementById("newPinChangeInput").value.trim();
+      const conf = document.getElementById("confirmPinChangeInput").value.trim();
+      if (oldP !== localStorage.getItem("xyz_pin")) { alert("PIN lama salah."); return; }
+      if (!/^[0-9]{6}$/.test(newP)) { alert("PIN baru harus 6 digit angka."); return; }
+      if (newP !== conf) { alert("Konfirmasi PIN tidak sama."); return; }
+      localStorage.setItem("xyz_pin", newP);
+      closePinChange();
+      alert("PIN berhasil diganti!");
+    }
+
+    function requestPin(actionFn) {
+      pendingAction = actionFn;
+      document.getElementById("pinModalInput").value = "";
+      document.getElementById("pinModal").classList.remove("hidden");
+      document.getElementById("pinModalInput").focus();
+    }
+
+    function confirmPin() {
+      const input = document.getElementById("pinModalInput").value.trim();
+      if (input === localStorage.getItem("xyz_pin")) {
+        closePinModal();
+        if (pendingAction) pendingAction();
+        pendingAction = null;
+      } else {
+        alert("PIN salah.");
+      }
+    }
+    function closePinModal() { document.getElementById("pinModal").classList.add("hidden"); }
+
+    /* ========== JAM REAL TIME ========== */
+    function updateDateTime() {
+      const now = new Date();
+      const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      document.getElementById("datetimeDisplay").textContent =
+        namaHari[now.getDay()] + ", " + now.getDate() + " " + namaBulan[now.getMonth()] + " " + now.getFullYear() +
+        " • " + String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0") + ":" + String(now.getSeconds()).padStart(2, "0");
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    /* ========== DOMPET ========== */
+    function formatRupiah(number) { return "Rp " + number.toLocaleString("id-ID"); }
+    function updateBalanceDisplay() { document.getElementById("balanceDisplay").textContent = formatRupiah(balance); }
+
+    function goDeposit() { switchTab("dompet"); setTimeout(() => document.getElementById("topupAmount").focus(), 100); }
+    function goWithdraw() { switchTab("dompet"); setTimeout(() => document.getElementById("targetName").focus(), 100); }
+
+    function transactionItemHTML(trx) {
+      const amountClass = trx.type === "in" ? "amount-positive" : "amount-negative";
+      const sign = trx.type === "in" ? "+" : "-";
+      return `
+        <div class="transaction-item">
+          <div class="transaction-info">
+            <h4>${trx.title}</h4>
+            <p>${trx.time}</p>
+          </div>
+          <div class="${amountClass}">${sign} ${formatRupiah(trx.amount)}</div>
+        </div>`;
+    }
+
+    function renderTransactions() {
+      const list = document.getElementById("transactionList");
+      const homeList = document.getElementById("homeTransactionList");
+      if (transactions.length === 0) {
+        list.innerHTML = '<div class="empty-state">Belum ada transaksi</div>';
+        homeList.innerHTML = '<div class="empty-state">Belum ada transaksi</div>';
+      } else {
+        list.innerHTML = transactions.map(transactionItemHTML).join("");
+        homeList.innerHTML = transactions.slice(0, 3).map(transactionItemHTML).join("");
+      }
+    }
+
+    function addTransaction(title, amount) {
+      transactions.unshift({ title, time: new Date().toLocaleString("id-ID"), amount, type: "out" });
+      updateBalanceDisplay(); renderTransactions(); saveState();
+    }
+
+    function topUp() {
+      const amountInput = document.getElementById("topupAmount");
+      const amount = Number(amountInput.value);
+      if (!amount || amount <= 0) { alert("Masukkan nominal top up yang valid."); return; }
+      balance += amount;
+      transactions.unshift({ title: "Top Up Saldo", time: new Date().toLocaleString("id-ID"), amount, type: "in" });
+      amountInput.value = "";
+      updateBalanceDisplay(); renderTransactions(); saveState();
+      alert("Top up berhasil!");
+    }
+
+    function startTransfer() {
+      const targetName = document.getElementById("targetName").value.trim();
+      const amount = Number(document.getElementById("transferAmount").value);
+      if (!targetName) { alert("Masukkan nama tujuan transfer."); return; }
+      if (!amount || amount <= 0) { alert("Masukkan nominal transfer yang valid."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("Transfer ke " + targetName, amount);
+        document.getElementById("targetName").value = "";
+        document.getElementById("transferAmount").value = "";
+        alert("Transfer ke " + targetName + " berhasil!");
+      });
+    }
+
+    function payQris() {
+      const merchant = document.getElementById("merchantInput").value.trim() || "Merchant QRIS";
+      const amount = Number(document.getElementById("qrisAmount").value);
+      if (!amount || amount <= 0) { alert("Masukkan nominal pembayaran yang valid."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("QRIS: " + merchant, amount);
+        document.getElementById("qrisAmount").value = "";
+        alert("Pembayaran QRIS ke " + merchant + " berhasil!");
+      });
+    }
+
+    /* ========== LISTRIK / PDAM / PULSA ========== */
+    function openListrik() { document.getElementById("listrikId").value = ""; document.getElementById("listrikModal").classList.remove("hidden"); }
+
+    function openPdam() {
+      document.getElementById("pdamId").value = "";
+      document.getElementById("pdamBillInfo").classList.add("hidden");
+      pdamBill = 0;
+      document.getElementById("pdamModal").classList.remove("hidden");
+    }
+
+    function openPulsa() { document.getElementById("pulsaPhone").value = ""; document.getElementById("pulsaModal").classList.remove("hidden"); }
+
+    function generateToken() {
+      const parts = [];
+      for (let i = 0; i < 4; i++) parts.push(String(Math.floor(1000 + Math.random() * 9000)));
+      return parts.join("-");
+    }
+
+    function payListrik() {
+      const id = document.getElementById("listrikId").value.trim();
+      const amount = Number(document.getElementById("listrikNominal").value);
+      if (!/^[0-9]{8,12}$/.test(id)) { alert("Masukkan ID pelanggan yang valid (8-12 digit)."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("Token Listrik: " + id, amount);
+        closeModal("listrikModal");
+        alert("Pembelian token listrik berhasil!\nKode token: " + generateToken());
+      });
+    }
+
+    function cekTagihanPdam() {
+      const id = document.getElementById("pdamId").value.trim();
+      if (!/^[0-9]{6,10}$/.test(id)) { alert("Masukkan nomor pelanggan PDAM yang valid (6-10 digit)."); return; }
+      const lastTwo = Number(id.slice(-2));
+      pdamBill = 45000 + lastTwo * 1000;
+      const info = document.getElementById("pdamBillInfo");
+      info.textContent = "Tagihan PDAM " + id + " : " + formatRupiah(pdamBill);
+      info.classList.remove("hidden");
+    }
+
+    function payPdam() {
+      const id = document.getElementById("pdamId").value.trim();
+      if (!id || !pdamBill) { alert("Cek tagihan terlebih dahulu."); return; }
+      if (pdamBill > balance) { alert("Saldo tidak cukup."); return; }
+      const amount = pdamBill;
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("PDAM: " + id, amount);
+        pdamBill = 0;
+        closeModal("pdamModal");
+        alert("Pembayaran PDAM berhasil!");
+      });
+    }
+
+    function buyPulsa() {
+      const phone = document.getElementById("pulsaPhone").value.trim();
+      const amount = Number(document.getElementById("pulsaNominal").value);
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP yang valid."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("Pulsa: " + phone, amount);
+        closeModal("pulsaModal");
+        alert("Pembelian pulsa " + formatRupiah(amount) + " ke " + phone + " berhasil!");
+      });
+    }
+
+    /* ========== XYZ PAY ========== */
+    function openXyzpay() {
+      document.getElementById("xyzpayPhone").value = "";
+      document.getElementById("xyzpayAmount").value = "";
+      document.getElementById("xyzpayModal").classList.remove("hidden");
+    }
+
+    function payXyzpay() {
+      const phone = document.getElementById("xyzpayPhone").value.trim();
+      const amount = Number(document.getElementById("xyzpayAmount").value);
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP tujuan yang valid."); return; }
+      if (!amount || amount <= 0) { alert("Masukkan nominal yang valid."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("XYZPay ke " + phone, amount);
+        closeModal("xyzpayModal");
+        alert("Pembayaran XYZ Pay ke " + phone + " berhasil!");
+      });
+    }
+
+    /* ========== E-MONEY ========== */
+    function openEmoney() {
+      document.getElementById("emoneyPhone").value = "";
+      document.getElementById("emoneyModal").classList.remove("hidden");
+    }
+
+    function payEmoney() {
+      const provider = document.getElementById("emoneyProvider").value;
+      const phone = document.getElementById("emoneyPhone").value.trim();
+      const amount = Number(document.getElementById("emoneyNominal").value);
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP yang valid."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("Top Up " + provider + ": " + phone, amount);
+        closeModal("emoneyModal");
+        alert("Top up " + provider + " " + formatRupiah(amount) + " ke " + phone + " berhasil!");
+      });
+    }
+
+    /* ========== TIKET (PESAWAT / KERETA / BUS) ========== */
+    function routeHash(a, b) {
+      const s = (a + ">>" + b).toUpperCase();
+      let h = 0;
+      for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 997;
+      return h;
+    }
+
+    function openTicket(type) {
+      document.getElementById(type + "From").value = "";
+      document.getElementById(type + "To").value = "";
+      document.getElementById(type + "Date").value = "";
+      document.getElementById(type + "Pax").value = "1";
+      document.getElementById(type + "Quote").classList.add("hidden");
+      ticketQuote = { type: null, price: 0, label: "" };
+      document.getElementById(type + "Modal").classList.remove("hidden");
+    }
+
+    function cekHargaTiket(type) {
+      const from = document.getElementById(type + "From").value.trim();
+      const to = document.getElementById(type + "To").value.trim();
+      const date = document.getElementById(type + "Date").value;
+      const pax = Number(document.getElementById(type + "Pax").value);
+
+      if (!from || !to) { alert("Isi kota asal dan kota tujuan."); return; }
+      if (from.toLowerCase() === to.toLowerCase()) { alert("Kota asal dan tujuan harus berbeda."); return; }
+      if (!date) { alert("Pilih tanggal perjalanan."); return; }
+      if (!pax || pax < 1) { alert("Jumlah penumpang minimal 1."); return; }
+
+      const h = routeHash(from, to);
+      let base = 0, name = "";
+      if (type === "pesawat") { base = 450000 + (h % 500) * 1000; name = "Tiket Pesawat"; }
+      if (type === "kereta")  { base = 150000 + (h % 200) * 1000; name = "Tiket Kereta"; }
+      if (type === "bus")     { base = 80000 + (h % 120) * 1000;  name = "Tiket Bus"; }
+
+      const total = base * pax;
+      ticketQuote = {
+        type: type,
+        price: total,
+        label: name + ": " + from.toUpperCase() + " \u2192 " + to.toUpperCase() + " (" + pax + " pax)"
+      };
+
+      const info = document.getElementById(type + "Quote");
+      info.textContent = name + " | " + from.toUpperCase() + " \u2192 " + to.toUpperCase() +
+        " | " + pax + " penumpang | Total: " + formatRupiah(total);
+      info.classList.remove("hidden");
+    }
+
+    function buyTicket(type) {
+      if (!ticketQuote.type || ticketQuote.type !== type) { alert("Cek harga terlebih dahulu."); return; }
+      if (ticketQuote.price > balance) { alert("Saldo tidak cukup."); return; }
+      const price = ticketQuote.price;
+      const label = ticketQuote.label;
+      requestPin(function () {
+        balance -= price;
+        addTransaction(label, price);
+        ticketQuote = { type: null, price: 0, label: "" };
+        closeModal(type + "Modal");
+        alert("Pembelian " + label + " berhasil!\nTiket elektronik telah diterbitkan (simulasi).");
+      });
+    }
+
+    /* ========== PROFIL ========== */
+    function renderProfile() {
+      document.getElementById("profilePhone").textContent = localStorage.getItem("xyz_phone") || "-";
+    }
+
+    /* ========== QR DEMO ========== */
+    function drawFakeQR() {
+      const canvas = document.getElementById("qrCanvas");
+      const ctx = canvas.getContext("2d");
+      const n = 21;
+      const size = canvas.width / n;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#111111";
+      let seed = 42;
+      function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+      function inFinder(r, c) { return (r < 7 && c < 7) || (r < 7 && c >= n - 7) || (r >= n - 7 && c < 7); }
+      function drawFinder(c0, r0) {
+        for (let r = 0; r < 7; r++) for (let c = 0; c < 7; c++) {
+          const edge = (r === 0 || r === 6 || c === 0 || c === 6);
+          const core = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+          if (edge || core) ctx.fillRect((c0 + c) * size, (r0 + r) * size, size, size);
+        }
+      }
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+        if (inFinder(r, c)) continue;
+        if (rand() > 0.5) ctx.fillRect(c * size, r * size, size, size);
+      }
+      drawFinder(0, 0); drawFinder(n - 7, 0); drawFinder(0, n - 7);
+    }
+
+    /* ========== INIT ========== */
+    loadState();
+    updateBalanceDisplay();
+    renderTransactions();
+  </script>
+</body>
+</html>
