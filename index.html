@@ -79,20 +79,25 @@
     .hidden { display: none !important; }
 
     /* ========== LOGO ========== */
-    .logo-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
-
+    .logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
     .header-title { display: flex; align-items: center; gap: 10px; }
-    .header-logo {
-      width: 40px; height: 40px; border-radius: 50%;
-      box-shadow: 0 0 14px var(--glow-strong);
-    }
+    .header-logo { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 14px var(--glow-strong); }
 
-    /* ========== SPLASH SCREEN ========== */
+    /* ========== PEMILIH BAHASA ========== */
+    .lang-switch { display: flex; gap: 6px; }
+    .lang-btn {
+      width: auto; padding: 4px 12px; font-size: 11px; border-radius: 999px;
+      border: 1px solid var(--border-mid); background: transparent; color: var(--text-dim);
+      cursor: pointer; font-weight: bold;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
+      color: white; border-color: transparent; box-shadow: 0 0 10px var(--glow);
+    }
+    .lang-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+    .lang-big .lang-btn { padding: 8px 14px; font-size: 12px; }
+
+    /* ========== SPLASH ========== */
     .splash {
       position: fixed; inset: 0; z-index: 200;
       background: linear-gradient(160deg, var(--bg1), var(--bg2));
@@ -100,39 +105,28 @@
       transition: opacity 0.5s;
     }
     .splash-hide { opacity: 0; pointer-events: none; }
-
     .splash-logo {
       width: 110px; height: 110px; border-radius: 50%;
       background: linear-gradient(135deg, var(--grad2), var(--grad3));
       color: white; font-weight: bold; font-size: 30px;
       display: flex; align-items: center; justify-content: center;
-      animation: splashPulse 1.4s ease infinite;
-      overflow: hidden;
+      animation: splashPulse 1.4s ease infinite; overflow: hidden;
     }
-
     .splash-name {
       margin-top: 16px; color: var(--text-main);
       font-size: 20px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase;
     }
-
-    .splash-loader {
-      width: 140px; height: 4px; border-radius: 2px;
-      background: rgba(255,255,255,0.15); overflow: hidden; margin-top: 20px;
-    }
+    .splash-loader { width: 140px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.15); overflow: hidden; margin-top: 20px; }
     .splash-loader::after {
       content: ""; display: block; width: 40%; height: 100%;
       background: linear-gradient(90deg, var(--grad2), var(--grad3));
       border-radius: 2px; animation: splashLoad 1.2s infinite;
     }
-
     @keyframes splashPulse {
       0%, 100% { transform: scale(1); box-shadow: 0 0 30px var(--glow-strong); }
       50% { transform: scale(1.07); box-shadow: 0 0 50px var(--glow-strong); }
     }
-    @keyframes splashLoad {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(350%); }
-    }
+    @keyframes splashLoad { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
 
     /* ========== TOAST ========== */
     #toastContainer {
@@ -140,7 +134,6 @@
       display: flex; flex-direction: column; gap: 8px; z-index: 300;
       width: calc(100% - 40px); max-width: 400px; pointer-events: none;
     }
-
     .toast {
       padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: bold;
       color: white; box-shadow: 0 6px 20px rgba(0,0,0,0.35);
@@ -149,58 +142,40 @@
     .toast-success { background: linear-gradient(135deg, #059669, #34d399); }
     .toast-error { background: linear-gradient(135deg, #b91c1c, #ef4444); }
     .toast-hide { opacity: 0; transform: translateY(-10px); transition: all 0.3s; }
-
-    @keyframes toastIn {
-      from { opacity: 0; transform: translateY(-14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ========== LOGIN & PIN ========== */
     .login-screen { width: 100%; display: flex; justify-content: center; }
-
     .login-card {
       width: 100%; max-width: 420px;
-      background: var(--surface);
-      border: 1px solid var(--border-mid);
-      border-radius: 24px;
-      padding: 32px 24px;
-      box-shadow: 0 0 50px var(--glow-soft);
-      text-align: center; height: fit-content;
+      background: var(--surface); border: 1px solid var(--border-mid);
+      border-radius: 24px; padding: 24px 24px 32px;
+      box-shadow: 0 0 50px var(--glow-soft); text-align: center; height: fit-content;
     }
-
     .login-logo {
       width: 80px; height: 80px; border-radius: 50%;
       background: linear-gradient(135deg, var(--grad2), var(--grad3));
       color: white; font-weight: bold; font-size: 22px;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 12px;
-      box-shadow: 0 0 30px var(--glow-strong);
-      overflow: hidden;
+      margin: 0 auto 12px; box-shadow: 0 0 30px var(--glow-strong); overflow: hidden;
     }
-
     .login-card h2 { margin-bottom: 4px; color: var(--text-main); letter-spacing: 1px; }
     .login-subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 24px; }
     .login-card label { display: block; text-align: left; font-size: 13px; color: var(--label); margin-bottom: 6px; }
-
     .login-card input {
-      width: 100%; padding: 12px;
-      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
+      width: 100%; padding: 12px; border: 1px solid var(--field-border);
+      background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 14px; font-size: 14px;
     }
-
     .login-card button {
       width: 100%; border: none; border-radius: 12px; padding: 13px;
       font-size: 14px; font-weight: bold; cursor: pointer;
       background: linear-gradient(135deg, var(--grad2), var(--grad3));
-      color: white;
-      box-shadow: 0 0 20px var(--glow);
+      color: white; box-shadow: 0 0 20px var(--glow);
     }
-
     .otp-demo-note {
-      background: var(--note-bg);
-      border: 1px dashed var(--accent); color: var(--accent-light);
-      border-radius: 12px; padding: 10px; font-size: 12px; margin-bottom: 14px;
-      text-align: left;
+      background: var(--note-bg); border: 1px dashed var(--accent); color: var(--accent-light);
+      border-radius: 12px; padding: 10px; font-size: 12px; margin-bottom: 14px; text-align: left;
     }
 
     /* ========== MODAL ========== */
@@ -208,111 +183,62 @@
       position: fixed; inset: 0; background: rgba(0,0,0,0.78);
       display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
     }
-
+    #pinModal { z-index: 150; }
     .modal-card {
-      background: var(--surface);
-      border: 1px solid var(--border-mid);
+      background: var(--surface); border: 1px solid var(--border-mid);
       border-radius: 20px; padding: 24px; width: 100%; max-width: 340px; text-align: center;
-      box-shadow: 0 0 50px var(--glow-soft);
-      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 0 50px var(--glow-soft); max-height: 90vh; overflow-y: auto;
     }
-
     .modal-card h3 { margin-bottom: 14px; color: var(--text-main); letter-spacing: 1px; }
-
     .modal-card input {
-      width: 100%; padding: 12px;
-      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
+      width: 100%; padding: 12px; border: 1px solid var(--field-border);
+      background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 12px; font-size: 14px;
     }
-
     .modal-card .pin-input { text-align: center; letter-spacing: 2px; }
-
     .modal-card button {
       width: 100%; border: none; border-radius: 12px; padding: 12px;
       font-size: 14px; font-weight: bold; cursor: pointer;
       background: linear-gradient(135deg, var(--grad2), var(--grad3)); color: white;
     }
-
     .btn-secondary { background: var(--secondary-bg) !important; color: var(--secondary-text) !important; margin-top: 8px; box-shadow: none !important; }
-
     select {
-      width: 100%; padding: 12px;
-      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
+      width: 100%; padding: 12px; border: 1px solid var(--field-border);
+      background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 12px; font-size: 14px;
     }
-
     input[type="date"] { color-scheme: dark; }
 
     /* ========== STRUK ========== */
     .receipt-status { color: #34d399; font-weight: bold; letter-spacing: 3px; font-size: 13px; margin-bottom: 12px; }
-
-    .receipt-body {
-      border-top: 1px dashed var(--border-mid);
-      border-bottom: 1px dashed var(--border-mid);
-      padding: 12px 0; margin-bottom: 12px;
-    }
-
-    .receipt-row {
-      display: flex; justify-content: space-between; gap: 10px;
-      font-size: 12px; color: var(--text-dim); margin-bottom: 8px; text-align: left;
-    }
+    .receipt-body { border-top: 1px dashed var(--border-mid); border-bottom: 1px dashed var(--border-mid); padding: 12px 0; margin-bottom: 12px; }
+    .receipt-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--text-dim); margin-bottom: 8px; text-align: left; }
     .receipt-row b { color: var(--text-main); text-align: right; }
-
     #rBarcode { display: block; background: white; border-radius: 8px; margin: 0 auto 8px; }
 
     /* ========== APLIKASI UTAMA ========== */
     .app {
-      width: 100%; max-width: 420px;
-      background: var(--surface);
-      border: 1px solid var(--border-mid);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 0 50px var(--glow-soft);
-      height: fit-content;
+      width: 100%; max-width: 420px; background: var(--surface);
+      border: 1px solid var(--border-mid); border-radius: 24px; overflow: hidden;
+      box-shadow: 0 0 50px var(--glow-soft); height: fit-content;
     }
-
-    .header {
-      background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3));
-      color: white; padding: 24px 20px;
-    }
-
-    .header h1 {
-      font-size: 22px; letter-spacing: 2px; text-transform: uppercase;
-      text-shadow: 0 0 14px var(--glow-strong);
-    }
-
-    .datetime {
-      margin-top: 6px; font-size: 13px; opacity: 0.95; letter-spacing: 1px;
-      font-family: Consolas, Menlo, monospace;
-      color: var(--accent-light);
-    }
-
+    .header { background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3)); color: white; padding: 24px 20px; }
+    .header h1 { font-size: 22px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 14px var(--glow-strong); }
+    .datetime { margin-top: 6px; font-size: 13px; opacity: 0.95; letter-spacing: 1px; font-family: Consolas, Menlo, monospace; color: var(--accent-light); }
     .balance-card {
-      margin-top: 18px; background: rgba(255,255,255,0.10);
-      border: 1px solid var(--border-light);
-      border-radius: 18px; padding: 18px;
-      display: flex; flex-direction: column; gap: 14px;
+      margin-top: 18px; background: rgba(255,255,255,0.10); border: 1px solid var(--border-light);
+      border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 14px;
     }
-
     .balance-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
     .balance-label { font-size: 12px; opacity: 0.85; letter-spacing: 2px; text-transform: uppercase; }
     .balance-right { display: flex; align-items: center; gap: 8px; }
-
-    .balance-value {
-      font-size: 26px; font-weight: bold;
-      font-family: Consolas, Menlo, monospace;
-      text-shadow: 0 0 16px var(--glow-strong);
-    }
-
+    .balance-value { font-size: 26px; font-weight: bold; font-family: Consolas, Menlo, monospace; text-shadow: 0 0 16px var(--glow-strong); }
     .eye-btn {
-      width: auto; background: rgba(255,255,255,0.15); border: none;
-      border-radius: 8px; padding: 5px; color: white; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
+      width: auto; background: rgba(255,255,255,0.15); border: none; border-radius: 8px;
+      padding: 5px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
     .eye-btn:hover { background: rgba(255,255,255,0.3); }
-
     .balance-actions { display: flex; gap: 10px; }
-
     .action-btn {
       flex: 1; width: auto; background: rgba(255,255,255,0.12); border: 1px solid var(--border-light);
       border-radius: 14px; padding: 10px 6px; color: white;
@@ -320,161 +246,104 @@
       cursor: pointer; font-size: 11px; font-weight: bold;
     }
     .action-btn:hover { background: rgba(255,255,255,0.22); }
-
     .icon-circle {
       width: 34px; height: 34px; background: var(--icon-circle-bg); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 14px var(--glow-strong);
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 0 14px var(--glow-strong);
     }
-
     .icon-circle svg { stroke: var(--icon-stroke); }
     .ppob-item svg { stroke: var(--accent-soft); }
 
     /* ========== KARTU VIRTUAL ========== */
     .vcard {
       background: linear-gradient(135deg, var(--grad1), var(--grad2) 60%, var(--grad3));
-      border-radius: 18px; padding: 18px; color: white;
-      margin-bottom: 18px; box-shadow: 0 0 24px var(--glow-soft);
+      border-radius: 18px; padding: 18px; color: white; margin-bottom: 18px;
+      box-shadow: 0 0 24px var(--glow-soft);
     }
-
     .vcard-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     .vcard-brand { font-weight: bold; letter-spacing: 2px; }
-    .vcard-chip { width: 40px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #fde68a, #f59e0b); }
-
-    .vcard-number {
-      display: flex; align-items: center; gap: 10px;
-      font-family: Consolas, Menlo, monospace; font-size: 17px; letter-spacing: 2px; margin-bottom: 16px;
-    }
-
+    .vcard-chip { width: 46px; height: 34px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.45)); }
+    .vcard-number { display: flex; align-items: center; gap: 10px; font-family: Consolas, Menlo, monospace; font-size: 17px; letter-spacing: 2px; margin-bottom: 16px; }
     .vcard-mini-btn {
       width: auto; background: rgba(255,255,255,0.15); border: none; color: white;
       border-radius: 8px; padding: 4px 8px; cursor: pointer; font-size: 11px; font-weight: bold;
     }
     .vcard-mini-btn:hover { background: rgba(255,255,255,0.3); }
-
     .vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
     .vcard-label { font-size: 10px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
     .vcard-value { font-size: 13px; font-weight: bold; letter-spacing: 1px; }
 
     .page-header { background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3)); color: white; padding: 20px; }
-    .page-header h2 {
-      font-size: 20px; letter-spacing: 2px; text-transform: uppercase;
-      text-shadow: 0 0 14px var(--glow-strong);
-    }
-
+    .page-header h2 { font-size: 20px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 14px var(--glow-strong); }
     .content { padding: 20px; }
-
     .home-section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .home-section-head .section-title { margin: 0; }
-
     .link-btn { width: auto; background: none; color: var(--accent-soft); font-size: 12px; padding: 0; }
-
     .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: var(--text-main); letter-spacing: 1px; }
-
     .ppob-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
-
     .ppob-item {
-      background: var(--surface2); border: 1px solid var(--border-soft);
-      border-radius: 14px; padding: 10px 4px; color: var(--accent-light);
+      background: var(--surface2); border: 1px solid var(--border-soft); border-radius: 14px;
+      padding: 10px 4px; color: var(--accent-light);
       display: flex; flex-direction: column; align-items: center; gap: 6px;
       cursor: pointer; font-size: 10px; font-weight: bold;
     }
     .ppob-item:hover { border-color: var(--accent-soft); box-shadow: 0 0 14px var(--glow); }
     .ppob-item svg { width: 20px; height: 20px; }
-
-    .card {
-      background: var(--surface2); border: 1px solid var(--border-soft);
-      border-radius: 16px; padding: 16px; margin-bottom: 16px;
-    }
-
+    .card { background: var(--surface2); border: 1px solid var(--border-soft); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
     label { display: block; font-size: 13px; color: var(--label); margin-bottom: 6px; text-align: left; }
-
     input {
-      width: 100%; padding: 12px;
-      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
+      width: 100%; padding: 12px; border: 1px solid var(--field-border);
+      background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 12px; font-size: 14px;
     }
-
-    button {
-      width: 100%; border: none; border-radius: 12px; padding: 12px;
-      font-size: 14px; font-weight: bold; cursor: pointer;
-    }
-
-    .btn-topup {
-      background: linear-gradient(135deg, #059669, #34d399);
-      color: white; margin-bottom: 8px;
-      box-shadow: 0 0 14px rgba(52,211,153,0.35);
-    }
-
-    .btn-transfer {
-      background: linear-gradient(135deg, var(--grad2), var(--grad3));
-      color: white;
-      box-shadow: 0 0 16px var(--glow);
-    }
-
+    button { width: 100%; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: bold; cursor: pointer; }
+    .btn-topup { background: linear-gradient(135deg, #059669, #34d399); color: white; margin-bottom: 8px; box-shadow: 0 0 14px rgba(52,211,153,0.35); }
+    .btn-transfer { background: linear-gradient(135deg, var(--grad2), var(--grad3)); color: white; box-shadow: 0 0 16px var(--glow); }
     .btn-outline { background: transparent; color: var(--accent-soft); border: 2px solid var(--accent-soft); margin-bottom: 10px; }
-
     .transaction-list { max-height: 380px; overflow-y: auto; }
-
     .transaction-item {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 12px; border-radius: 12px;
-      background: var(--surface3); border: 1px solid var(--border-soft);
-      margin-bottom: 10px; cursor: pointer;
+      padding: 12px; border-radius: 12px; background: var(--surface3);
+      border: 1px solid var(--border-soft); margin-bottom: 10px; cursor: pointer;
     }
     .transaction-item:hover { border-color: var(--accent-soft); }
-
     .transaction-info h4 { font-size: 14px; margin-bottom: 4px; color: var(--text-main); }
     .transaction-info p { font-size: 12px; color: var(--text-dim); }
-
     .amount-positive { color: #34d399; font-weight: bold; font-family: Consolas, Menlo, monospace; }
     .amount-negative { color: #fb7185; font-weight: bold; font-family: Consolas, Menlo, monospace; }
-
     .empty-state { text-align: center; color: #64748b; font-size: 13px; padding: 20px 0; }
-
     #qrCanvas { display: block; margin: 0 auto 8px; background: white; border-radius: 12px; }
     .qr-note { font-size: 11px; color: #64748b; margin-bottom: 14px; text-align: center; }
-
     .profile-card { text-align: center; }
     .profile-avatar {
       width: 64px; height: 64px; border-radius: 50%;
       background: linear-gradient(135deg, var(--grad2), var(--grad3));
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 10px; color: white;
-      box-shadow: 0 0 24px var(--glow-strong);
-      overflow: hidden;
+      margin: 0 auto 10px; color: white; box-shadow: 0 0 24px var(--glow-strong); overflow: hidden;
     }
     .profile-card h3 { color: var(--text-main); margin-bottom: 4px; font-family: Consolas, Menlo, monospace; }
     .profile-card p { font-size: 12px; color: #94a3b8; }
 
     /* ========== PEMILIH TEMA ========== */
     .theme-grid { display: flex; gap: 10px; }
-
     .theme-btn {
-      flex: 1; width: auto; padding: 10px 6px; border-radius: 12px;
-      border: 2px solid transparent;
-      background: var(--surface3); color: var(--text-main);
-      font-size: 11px; font-weight: bold; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      flex: 1; width: auto; padding: 10px 6px; border-radius: 12px; border: 2px solid transparent;
+      background: var(--surface3); color: var(--text-main); font-size: 11px; font-weight: bold;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px;
     }
-
     .theme-btn.active { border-color: var(--accent-soft); box-shadow: 0 0 12px var(--glow); }
-
     .swatch { width: 22px; height: 22px; border-radius: 50%; }
     .swatch-ungu { background: linear-gradient(135deg, #7c3aed, #a855f7); }
     .swatch-biru { background: linear-gradient(135deg, #1d5bbf, #4da3ff); }
     .swatch-merah { background: linear-gradient(135deg, #b91c1c, #ef4444); }
     .swatch-emas { background: linear-gradient(135deg, #a16207, #fbbf24); }
 
-    /* ========== BOTTOM NAVIGATION ========== */
+    /* ========== BOTTOM NAV ========== */
     .bottom-nav { display: flex; border-top: 1px solid var(--border-soft); background: var(--field-bg); }
-
     .nav-item {
       flex: 1; background: none; border: none; padding: 10px 4px 8px;
       display: flex; flex-direction: column; align-items: center; gap: 4px;
       font-size: 9px; color: var(--nav-idle); cursor: pointer; font-weight: bold; letter-spacing: 1px;
     }
-
     .nav-item.active { color: var(--accent-soft); text-shadow: 0 0 12px var(--glow-strong); }
     .nav-item svg { width: 20px; height: 20px; }
   </style>
@@ -484,10 +353,10 @@
   <!-- ========== SPLASH ========== -->
   <div class="splash" id="splashScreen">
     <div class="splash-logo">
-      <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+      <img src="logo.png" alt="XYZ" class="logo-img"
         onerror="var p=this.parentElement; this.remove(); p.textContent='XYZ';" />
     </div>
-    <div class="splash-name">XYZ Wallet</div>
+    <div class="splash-name">XYZ</div>
     <div class="splash-loader"></div>
   </div>
 
@@ -497,22 +366,29 @@
   <!-- ========== HALAMAN LOGIN ========== -->
   <div class="login-screen" id="loginScreen">
     <div class="login-card">
+      <div class="lang-row">
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="id" onclick="setLang('id')">ID</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+
       <div class="login-logo">
-        <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+        <img src="logo.png" alt="XYZ" class="logo-img"
           onerror="var p=this.parentElement; this.remove(); p.textContent='XYZ';" />
       </div>
-      <h2>XYZ Wallet</h2>
+      <h2>XYZ</h2>
       <p class="login-subtitle">XYZ Secure Transactions</p>
 
-      <label for="phoneInput">Nomor HP</label>
-      <input type="tel" id="phoneInput" placeholder="Contoh: 08123456789" />
-      <button onclick="sendOtp()">Kirim Kode OTP</button>
+      <label for="phoneInput" data-i18n="labelPhone">Nomor HP</label>
+      <input type="tel" id="phoneInput" data-i18n-ph="phPhone" placeholder="Contoh: 08123456789" />
+      <button onclick="sendOtp()" data-i18n="btnSendOtp">Kirim Kode OTP</button>
 
       <div id="otpSection" class="hidden" style="margin-top: 18px;">
         <div class="otp-demo-note" id="otpDemoNote"></div>
-        <label for="otpInput">Kode OTP</label>
-        <input type="text" id="otpInput" maxlength="6" placeholder="Masukkan 6 digit OTP" />
-        <button onclick="login()">Masuk</button>
+        <label for="otpInput" data-i18n="labelOtp">Kode OTP</label>
+        <input type="text" id="otpInput" maxlength="6" data-i18n-ph="phOtp" placeholder="Masukkan 6 digit OTP" />
+        <button onclick="login()" data-i18n="btnLogin">Masuk</button>
       </div>
     </div>
   </div>
@@ -521,19 +397,19 @@
   <div class="login-screen hidden" id="pinSetupScreen">
     <div class="login-card">
       <div class="login-logo">
-        <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+        <img src="logo.png" alt="XYZ" class="logo-img"
           onerror="var p=this.parentElement; this.remove(); p.textContent='PIN';" />
       </div>
-      <h2>Buat PIN Transaksi</h2>
-      <p class="login-subtitle">PIN 6 digit digunakan untuk mengamankan transaksimu</p>
+      <h2 data-i18n="pinSetupTitle">Buat PIN Transaksi</h2>
+      <p class="login-subtitle" data-i18n="pinSetupSubtitle">PIN 6 digit digunakan untuk mengamankan transaksimu</p>
 
-      <label for="newPinInput">PIN Baru (6 digit)</label>
+      <label for="newPinInput" data-i18n="labelNewPin">PIN Baru (6 digit)</label>
       <input type="password" id="newPinInput" maxlength="6" inputmode="numeric" placeholder="******" />
 
-      <label for="confirmPinInput">Ulangi PIN</label>
+      <label for="confirmPinInput" data-i18n="labelConfirmPin">Ulangi PIN</label>
       <input type="password" id="confirmPinInput" maxlength="6" inputmode="numeric" placeholder="******" />
 
-      <button onclick="savePin()">Simpan PIN</button>
+      <button onclick="savePin()" data-i18n="btnSavePin">Simpan PIN</button>
     </div>
   </div>
 
@@ -545,13 +421,13 @@
       <div class="header">
         <div class="header-title">
           <img src="logo.png" alt="" class="header-logo" onerror="this.style.display='none'" />
-          <h1>XYZ Wallet</h1>
+          <h1>XYZ</h1>
         </div>
         <div class="datetime" id="datetimeDisplay">Memuat waktu...</div>
 
         <div class="balance-card">
           <div class="balance-top">
-            <div class="balance-label">Saldo Anda</div>
+            <div class="balance-label" data-i18n="balanceLabel">Saldo Anda</div>
             <div class="balance-right">
               <div class="balance-value" id="balanceDisplay">Rp 0</div>
               <button class="eye-btn" onclick="toggleHideBalance()" title="Sembunyikan / tampilkan saldo">
@@ -575,7 +451,7 @@
                   <path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M5 21h14"/>
                 </svg>
               </span>
-              Deposit
+              <span data-i18n="actDeposit">Deposit</span>
             </button>
 
             <button class="action-btn" onclick="goWithdraw()" title="Withdraw">
@@ -584,7 +460,7 @@
                   <path d="M12 21V9"/><path d="M6 13l6-6 6 6"/><path d="M5 3h14"/>
                 </svg>
               </span>
-              Withdraw
+              <span data-i18n="actWithdraw">Withdraw</span>
             </button>
 
             <button class="action-btn" onclick="goTransfer()" title="Transfer">
@@ -593,7 +469,7 @@
                   <path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/>
                 </svg>
               </span>
-              Transfer
+              <span data-i18n="actTransfer">Transfer</span>
             </button>
           </div>
         </div>
@@ -603,196 +479,214 @@
         <div class="vcard">
           <div class="vcard-top">
             <div class="vcard-brand">XYZ CARD</div>
-            <div class="vcard-chip"></div>
+            <svg class="vcard-chip" width="46" height="34" viewBox="0 0 46 34" role="img" aria-label="Chip kartu">
+              <defs>
+                <linearGradient id="chipGold" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%"  stop-color="#f9e7a5"/>
+                  <stop offset="45%" stop-color="#e2b64d"/>
+                  <stop offset="100%" stop-color="#9c6f1a"/>
+                </linearGradient>
+              </defs>
+              <rect x="0.6" y="0.6" width="44.8" height="32.8" rx="6" fill="url(#chipGold)" stroke="#7a5a14" stroke-width="1.2"/>
+              <g stroke="#7a5a14" stroke-width="1.1" fill="none" opacity="0.85">
+                <path d="M0.6 11.5 H13"/><path d="M0.6 22.5 H13"/>
+                <path d="M33 11.5 H45.4"/><path d="M33 22.5 H45.4"/>
+                <path d="M13 0.6 V33.4"/><path d="M33 0.6 V33.4"/>
+                <path d="M13 11.5 H33"/><path d="M13 22.5 H33"/>
+              </g>
+              <rect x="17" y="14.5" width="12" height="7" rx="2" fill="none" stroke="#7a5a14" stroke-width="1.1" opacity="0.85"/>
+            </svg>
           </div>
 
           <div class="vcard-number">
             <span id="cardNumber">•••• •••• •••• ••••</span>
             <button class="vcard-mini-btn" onclick="toggleCardNumber()" title="Lihat / sembunyikan nomor">👁</button>
-            <button class="vcard-mini-btn" onclick="copyCardNumber()" title="Salin nomor kartu">Salin</button>
+            <button class="vcard-mini-btn" onclick="copyCardNumber()" data-i18n="btnCopy">Salin</button>
           </div>
 
           <div class="vcard-bottom">
             <div>
-              <div class="vcard-label">Pemegang</div>
-              <div class="vcard-value">PENGGUNA XYZ</div>
+              <div class="vcard-label" data-i18n="vcardHolderLabel">Pemegang</div>
+              <div class="vcard-value">Nur laili</div>
             </div>
             <div>
-              <div class="vcard-label">Berlaku</div>
+              <div class="vcard-label" data-i18n="vcardExpiryLabel">Berlaku</div>
               <div class="vcard-value">08/29</div>
             </div>
             <div>
               <div class="vcard-label">CVV</div>
-              <div class="vcard-value">•••</div>
+              <div class="vcard-value">777</div>
             </div>
           </div>
         </div>
 
-        <div class="section-title">Pembayaran & Tagihan</div>
+        <div class="section-title" data-i18n="payTitle">Pembayaran & Tagihan</div>
         <div class="ppob-grid">
           <button class="ppob-item" onclick="openListrik()">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-            Listrik
+            <span data-i18n="menuListrik">Listrik</span>
           </button>
-
           <button class="ppob-item" onclick="openPdam()">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>
-            PDAM
+            <span data-i18n="menuPdam">PDAM</span>
           </button>
-
           <button class="ppob-item" onclick="openPulsa()">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
-            Pulsa
+            <span data-i18n="menuPulsa">Pulsa</span>
           </button>
-
           <button class="ppob-item" onclick="openXyzpay()">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-            XYZ Pay
+            <span data-i18n="menuXyzpay">XYZ Pay</span>
           </button>
-
           <button class="ppob-item" onclick="openEmoney()">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
-            E-Money
+            <span data-i18n="menuEmoney">E-Money</span>
           </button>
-
           <button class="ppob-item" onclick="openTicket('pesawat')">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
-            Pesawat
+            <span data-i18n="menuPesawat">Pesawat</span>
           </button>
-
           <button class="ppob-item" onclick="openTicket('kereta')">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 9h14"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/><path d="M8 16l-2 4"/><path d="M16 16l2 4"/></svg>
-            Kereta
+            <span data-i18n="menuKereta">Kereta</span>
           </button>
-
           <button class="ppob-item" onclick="openTicket('bus')">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16"/><circle cx="8.5" cy="17.5" r="1.5"/><circle cx="15.5" cy="17.5" r="1.5"/></svg>
-            Bus
+            <span data-i18n="menuBus">Bus</span>
           </button>
         </div>
 
         <div class="home-section-head">
-          <div class="section-title">Transaksi Terakhir</div>
-          <button class="link-btn" onclick="switchTab('aktivitas')">Lihat Semua</button>
+          <div class="section-title" data-i18n="lastTransTitle">Transaksi Terakhir</div>
+          <button class="link-btn" onclick="switchTab('aktivitas')" data-i18n="btnSeeAll">Lihat Semua</button>
         </div>
         <div id="homeTransactionList">
-          <div class="empty-state">Belum ada transaksi</div>
+          <div class="empty-state" data-i18n="emptyTrans">Belum ada transaksi</div>
         </div>
       </div>
     </div>
 
     <!-- ===== AKTIVITAS ===== -->
     <div class="page hidden" id="pageAktivitas">
-      <div class="page-header"><h2>Aktivitas</h2></div>
+      <div class="page-header"><h2 data-i18n="pageAktivitas">Aktivitas</h2></div>
       <div class="content">
         <div class="transaction-list" id="transactionList">
-          <div class="empty-state">Belum ada transaksi</div>
+          <div class="empty-state" data-i18n="emptyTrans">Belum ada transaksi</div>
         </div>
       </div>
     </div>
 
     <!-- ===== QRIS ===== -->
     <div class="page hidden" id="pageQris">
-      <div class="page-header"><h2>QRIS</h2></div>
+      <div class="page-header"><h2 data-i18n="pageQris">QRIS</h2></div>
       <div class="content">
         <div class="card">
           <canvas id="qrCanvas" width="168" height="168"></canvas>
-          <p class="qr-note">QR demo untuk tampilan saja</p>
+          <p class="qr-note" data-i18n="qrNote">QR demo untuk tampilan saja</p>
 
-          <label for="merchantInput">Nama Merchant</label>
+          <label for="merchantInput" data-i18n="labelMerchant">Nama Merchant</label>
           <input id="merchantInput" value="Kopi XYZ" />
 
-          <label for="qrisAmount">Nominal Pembayaran</label>
-          <input type="number" id="qrisAmount" placeholder="Contoh: 25000" min="1" />
+          <label for="qrisAmount" data-i18n="labelPayAmount">Nominal Pembayaran</label>
+          <input type="number" id="qrisAmount" data-i18n-ph="phPayAmount" placeholder="Contoh: 25000" min="1" />
 
-          <button class="btn-transfer" onclick="payQris()">Bayar</button>
+          <button class="btn-transfer" onclick="payQris()" data-i18n="btnPay">Bayar</button>
         </div>
       </div>
     </div>
 
     <!-- ===== DOMPET ===== -->
     <div class="page hidden" id="pageDompet">
-      <div class="page-header"><h2>Dompet</h2></div>
+      <div class="page-header"><h2 data-i18n="pageDompet">Dompet</h2></div>
       <div class="content">
-        <div class="section-title">Top Up Simulasi</div>
+        <div class="section-title" data-i18n="topupTitle">Top Up</div>
         <div class="card">
-          <label for="topupAmount">Nominal Top Up</label>
-          <input type="number" id="topupAmount" placeholder="Contoh: 50000" min="1" />
-          <button class="btn-topup" onclick="topUp()">Top Up</button>
+          <label for="topupAmount" data-i18n="labelTopup">Nominal Top Up</label>
+          <input type="number" id="topupAmount" data-i18n-ph="phTopup" placeholder="Contoh: 50000" min="1" />
+          <button class="btn-topup" onclick="topUp()" data-i18n="btnTopup">Top Up</button>
         </div>
 
-        <div class="section-title">Transfer Simulasi</div>
+        <div class="section-title" data-i18n="transferTitle">Transfer</div>
         <div class="card">
-          <label for="targetName">Nama Tujuan</label>
-          <input type="text" id="targetName" placeholder="Contoh: Nurlaili" />
+          <label for="targetName" data-i18n="labelTarget">Nama Tujuan</label>
+          <input type="text" id="targetName" data-i18n-ph="phTarget" placeholder="Contoh: Nurlaili" />
 
-          <label for="transferAmount">Nominal Transfer</label>
-          <input type="number" id="transferAmount" placeholder="Contoh: 20000" min="1" />
+          <label for="transferAmount" data-i18n="labelTransferAmount">Nominal Transfer</label>
+          <input type="number" id="transferAmount" data-i18n-ph="phTransferAmount" placeholder="Contoh: 20000" min="1" />
 
-          <button class="btn-transfer" onclick="startTransfer()">Transfer</button>
+          <button class="btn-transfer" onclick="startTransfer()" data-i18n="btnTransfer">Transfer</button>
         </div>
       </div>
     </div>
 
     <!-- ===== PROFIL ===== -->
     <div class="page hidden" id="pageProfil">
-      <div class="page-header"><h2>Profil</h2></div>
+      <div class="page-header"><h2 data-i18n="pageProfil">Profil</h2></div>
       <div class="content">
         <div class="card profile-card">
           <div class="profile-avatar">
-            <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'" />
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" style="position:absolute;">
+            <img src="logo.png" alt="" class="logo-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" style="display:none;">
               <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
             </svg>
           </div>
           <h3 id="profilePhone">-</h3>
-          <p>Pengguna XYZ Wallet</p>
+          <p data-i18n="profileDesc">Pengguna XYZ Wallet</p>
         </div>
 
         <div class="card">
-          <div class="section-title" style="margin-bottom: 10px;">Tema Aplikasi</div>
+          <div class="section-title" style="margin-bottom: 10px;" data-i18n="langTitle">Bahasa</div>
+          <div class="lang-switch lang-big">
+            <button class="lang-btn active" data-lang="id" onclick="setLang('id')">🇮 Indonesia</button>
+            <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title" style="margin-bottom: 10px;" data-i18n="themeTitle">Tema Aplikasi</div>
           <div class="theme-grid">
             <button class="theme-btn active" id="theme-ungu" onclick="setTheme('ungu')">
-              <span class="swatch swatch-ungu"></span>Ungu
+              <span class="swatch swatch-ungu"></span><span data-i18n="themeUngu">Ungu</span>
             </button>
             <button class="theme-btn" id="theme-biru" onclick="setTheme('biru')">
-              <span class="swatch swatch-biru"></span>Biru
+              <span class="swatch swatch-biru"></span><span data-i18n="themeBiru">Biru</span>
             </button>
             <button class="theme-btn" id="theme-merah" onclick="setTheme('merah')">
-              <span class="swatch swatch-merah"></span>Merah
+              <span class="swatch swatch-merah"></span><span data-i18n="themeMerah">Merah</span>
             </button>
             <button class="theme-btn" id="theme-emas" onclick="setTheme('emas')">
-              <span class="swatch swatch-emas"></span>Emas
+              <span class="swatch swatch-emas"></span><span data-i18n="themeEmas">Emas</span>
             </button>
           </div>
         </div>
 
-        <button class="btn-outline" onclick="openPinChange()">Ganti PIN Transaksi</button>
-        <button class="btn-transfer" onclick="logout()">Keluar</button>
+        <button class="btn-outline" onclick="openPinChange()" data-i18n="btnChangePin">Ganti PIN Transaksi</button>
+        <button class="btn-transfer" onclick="logout()" data-i18n="btnLogout">Keluar</button>
       </div>
     </div>
 
-    <!-- ===== BOTTOM NAVIGATION ===== -->
+    <!-- ===== BOTTOM NAV ===== -->
     <nav class="bottom-nav">
       <button class="nav-item active" id="nav-home" onclick="switchTab('home')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
-        HOME
+        <span data-i18n="navHome">HOME</span>
       </button>
       <button class="nav-item" id="nav-aktivitas" onclick="switchTab('aktivitas')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        AKTIVITAS
+        <span data-i18n="navAktivitas">AKTIVITAS</span>
       </button>
       <button class="nav-item" id="nav-qris" onclick="switchTab('qris')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3z"/><path d="M18 18h3v3h-3z"/></svg>
-        QRIS
+        <span data-i18n="navQris">QRIS</span>
       </button>
       <button class="nav-item" id="nav-dompet" onclick="switchTab('dompet')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M15 15h3"/></svg>
-        DOMPET
+        <span data-i18n="navDompet">DOMPET</span>
       </button>
       <button class="nav-item" id="nav-profil" onclick="switchTab('profil')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-        PROFIL
+        <span data-i18n="navProfil">PROFIL</span>
       </button>
     </nav>
   </div>
@@ -800,33 +694,33 @@
   <!-- ========== POPUP PIN ========== -->
   <div class="modal-overlay hidden" id="pinModal">
     <div class="modal-card">
-      <h3>Masukkan PIN Transaksi</h3>
+      <h3 data-i18n="pinModalTitle">Masukkan PIN Transaksi</h3>
       <input type="password" id="pinModalInput" class="pin-input" maxlength="6" inputmode="numeric" placeholder="******" />
-      <button onclick="confirmPin()">Konfirmasi</button>
-      <button class="btn-secondary" onclick="closePinModal()">Batal</button>
+      <button onclick="confirmPin()" data-i18n="btnConfirm">Konfirmasi</button>
+      <button class="btn-secondary" onclick="closePinModal()" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP GANTI PIN ========== -->
   <div class="modal-overlay hidden" id="pinChangeModal">
     <div class="modal-card">
-      <h3>Ganti PIN</h3>
-      <input type="password" id="oldPinInput" class="pin-input" maxlength="6" placeholder="PIN lama" />
-      <input type="password" id="newPinChangeInput" class="pin-input" maxlength="6" placeholder="PIN baru 6 digit" />
-      <input type="password" id="confirmPinChangeInput" class="pin-input" maxlength="6" placeholder="Ulangi PIN baru" />
-      <button onclick="changePin()">Simpan</button>
-      <button class="btn-secondary" onclick="closePinChange()">Batal</button>
+      <h3 data-i18n="changePinTitle">Ganti PIN</h3>
+      <input type="password" id="oldPinInput" class="pin-input" maxlength="6" data-i18n-ph="phOldPin" placeholder="PIN lama" />
+      <input type="password" id="newPinChangeInput" class="pin-input" maxlength="6" data-i18n-ph="phNewPin" placeholder="PIN baru 6 digit" />
+      <input type="password" id="confirmPinChangeInput" class="pin-input" maxlength="6" data-i18n-ph="phConfirmNewPin" placeholder="Ulangi PIN baru" />
+      <button onclick="changePin()" data-i18n="btnSave">Simpan</button>
+      <button class="btn-secondary" onclick="closePinChange()" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP TARIK TUNAI ========== -->
   <div class="modal-overlay hidden" id="withdrawModal">
     <div class="modal-card">
-      <h3>💵 Tarik Tunai</h3>
-      <label>Nominal Tarik</label>
-      <input type="number" id="withdrawAmount" min="1" placeholder="Contoh: 100000" />
-      <button onclick="withdrawCash()">Tarik</button>
-      <button class="btn-secondary" onclick="closeModal('withdrawModal')">Batal</button>
+      <h3 data-i18n="withdrawTitle">💵 Tarik Tunai</h3>
+      <label data-i18n="labelWithdraw">Nominal Tarik</label>
+      <input type="number" id="withdrawAmount" min="1" data-i18n-ph="phWithdraw" placeholder="Contoh: 100000" />
+      <button onclick="withdrawCash()" data-i18n="btnWithdraw">Tarik</button>
+      <button class="btn-secondary" onclick="closeModal('withdrawModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
@@ -834,36 +728,36 @@
   <div class="modal-overlay hidden" id="receiptModal">
     <div class="modal-card">
       <div class="login-logo" style="width:56px;height:56px;font-size:14px;margin:0 auto 10px;">
-        <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+        <img src="logo.png" alt="XYZ" class="logo-img"
           onerror="var p=this.parentElement; this.remove(); p.textContent='XYZ';" />
       </div>
-      <h3>Struk Transaksi</h3>
-      <p class="receipt-status">✔ SUKSES</p>
+      <h3 data-i18n="receiptTitle">Struk Transaksi</h3>
+      <p class="receipt-status" data-i18n="receiptStatus">✔ SUKSES</p>
 
       <div class="receipt-body">
-        <div class="receipt-row"><span>Layanan</span><b id="rTitle">-</b></div>
-        <div class="receipt-row"><span>Nominal</span><b id="rAmount">-</b></div>
-        <div class="receipt-row"><span>Biaya Admin</span><b>Rp 0</b></div>
-        <div class="receipt-row"><span>Sumber Dana</span><b>Saldo XYZ</b></div>
-        <div class="receipt-row"><span>Waktu</span><b id="rTime">-</b></div>
-        <div class="receipt-row"><span>ID Transaksi</span><b id="rId">-</b></div>
+        <div class="receipt-row"><span data-i18n="rService">Layanan</span><b id="rTitle">-</b></div>
+        <div class="receipt-row"><span data-i18n="rAmount">Nominal</span><b id="rAmount">-</b></div>
+        <div class="receipt-row"><span data-i18n="rAdmin">Biaya Admin</span><b>Rp 0</b></div>
+        <div class="receipt-row"><span data-i18n="rSource">Sumber Dana</span><b data-i18n="rSourceVal">Saldo XYZ</b></div>
+        <div class="receipt-row"><span data-i18n="rTime">Waktu</span><b id="rTime">-</b></div>
+        <div class="receipt-row"><span data-i18n="rId">ID Transaksi</span><b id="rId">-</b></div>
       </div>
 
       <canvas id="rBarcode" width="220" height="56"></canvas>
-      <p class="qr-note">Simpan struk ini sebagai bukti transaksi (simulasi)</p>
+      <p class="qr-note" data-i18n="receiptNote">Simpan struk ini sebagai bukti transaksi yang sah</p>
 
-      <button onclick="copyReceipt()">Salin Struk</button>
-      <button class="btn-secondary" onclick="closeModal('receiptModal')">Tutup</button>
+      <button onclick="copyReceipt()" data-i18n="btnCopyReceipt">Salin Struk</button>
+      <button class="btn-secondary" onclick="closeModal('receiptModal')" data-i18n="btnClose">Tutup</button>
     </div>
   </div>
 
   <!-- ========== POPUP LISTRIK ========== -->
   <div class="modal-overlay hidden" id="listrikModal">
     <div class="modal-card">
-      <h3>⚡ Token Listrik</h3>
-      <label>ID Pelanggan / Nomor Meter</label>
-      <input type="text" id="listrikId" inputmode="numeric" maxlength="12" placeholder="Contoh: 123456789012" />
-      <label>Nominal Token</label>
+      <h3 data-i18n="listrikTitle">⚡ Token Listrik</h3>
+      <label data-i18n="labelMeter">ID Pelanggan / Nomor Meter</label>
+      <input type="text" id="listrikId" inputmode="numeric" maxlength="12" data-i18n-ph="phMeter" placeholder="Contoh: 123456789012" />
+      <label data-i18n="labelToken">Nominal Token</label>
       <select id="listrikNominal">
         <option value="20000">Rp 20.000</option>
         <option value="50000">Rp 50.000</option>
@@ -871,31 +765,31 @@
         <option value="200000">Rp 200.000</option>
         <option value="500000">Rp 500.000</option>
       </select>
-      <button onclick="payListrik()">Beli Token</button>
-      <button class="btn-secondary" onclick="closeModal('listrikModal')">Batal</button>
+      <button onclick="payListrik()" data-i18n="btnBuyToken">Beli Token</button>
+      <button class="btn-secondary" onclick="closeModal('listrikModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP PDAM ========== -->
   <div class="modal-overlay hidden" id="pdamModal">
     <div class="modal-card">
-      <h3>💧 Tagihan PDAM</h3>
-      <label>Nomor Pelanggan PDAM</label>
-      <input type="text" id="pdamId" inputmode="numeric" maxlength="10" placeholder="Contoh: 08123456" />
+      <h3 data-i18n="pdamTitle">💧 Tagihan PDAM</h3>
+      <label data-i18n="labelPdam">Nomor Pelanggan PDAM</label>
+      <input type="text" id="pdamId" inputmode="numeric" maxlength="10" data-i18n-ph="phPdam" placeholder="Contoh: 08123456" />
       <div class="otp-demo-note hidden" id="pdamBillInfo"></div>
-      <button onclick="cekTagihanPdam()">Cek Tagihan</button>
-      <button onclick="payPdam()">Bayar Tagihan</button>
-      <button class="btn-secondary" onclick="closeModal('pdamModal')">Batal</button>
+      <button onclick="cekTagihanPdam()" data-i18n="btnCheckBill">Cek Tagihan</button>
+      <button onclick="payPdam()" data-i18n="btnPayBill">Bayar Tagihan</button>
+      <button class="btn-secondary" onclick="closeModal('pdamModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP PULSA ========== -->
   <div class="modal-overlay hidden" id="pulsaModal">
     <div class="modal-card">
-      <h3>📱 Beli Pulsa</h3>
-      <label>Nomor HP</label>
-      <input type="tel" id="pulsaPhone" inputmode="numeric" maxlength="13" placeholder="Contoh: 08123456789" />
-      <label>Nominal Pulsa</label>
+      <h3 data-i18n="pulsaTitle">📱 Beli Pulsa</h3>
+      <label data-i18n="labelPulsaPhone">Nomor HP</label>
+      <input type="tel" id="pulsaPhone" inputmode="numeric" maxlength="13" data-i18n-ph="phPhone" placeholder="Contoh: 08123456789" />
+      <label data-i18n="labelPulsa">Nominal Pulsa</label>
       <select id="pulsaNominal">
         <option value="5000">Rp 5.000</option>
         <option value="10000">Rp 10.000</option>
@@ -903,8 +797,8 @@
         <option value="50000">Rp 50.000</option>
         <option value="100000">Rp 100.000</option>
       </select>
-      <button onclick="buyPulsa()">Beli Pulsa</button>
-      <button class="btn-secondary" onclick="closeModal('pulsaModal')">Batal</button>
+      <button onclick="buyPulsa()" data-i18n="btnBuyPulsa">Beli Pulsa</button>
+      <button class="btn-secondary" onclick="closeModal('pulsaModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
@@ -912,12 +806,12 @@
   <div class="modal-overlay hidden" id="xyzpayModal">
     <div class="modal-card">
       <h3>🚀 XYZ Pay</h3>
-      <label>Nomor HP Pengguna XYZ Tujuan</label>
-      <input type="tel" id="xyzpayPhone" inputmode="numeric" maxlength="13" placeholder="Contoh: 08123456789" />
-      <label>Nominal Pembayaran</label>
-      <input type="number" id="xyzpayAmount" min="1" placeholder="Contoh: 75000" />
-      <button onclick="payXyzpay()">Bayar</button>
-      <button class="btn-secondary" onclick="closeModal('xyzpayModal')">Batal</button>
+      <label data-i18n="labelXyzpay">Nomor HP Pengguna XYZ Tujuan</label>
+      <input type="tel" id="xyzpayPhone" inputmode="numeric" maxlength="13" data-i18n-ph="phPhone" placeholder="Contoh: 08123456789" />
+      <label data-i18n="labelXyzpayAmount">Nominal Pembayaran</label>
+      <input type="number" id="xyzpayAmount" min="1" data-i18n-ph="phXyzpay" placeholder="Contoh: 75000" />
+      <button onclick="payXyzpay()" data-i18n="btnPay">Bayar</button>
+      <button class="btn-secondary" onclick="closeModal('xyzpayModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
@@ -925,7 +819,7 @@
   <div class="modal-overlay hidden" id="emoneyModal">
     <div class="modal-card">
       <h3>💳 Top Up E-Money</h3>
-      <label>Penyedia</label>
+      <label data-i18n="labelProvider">Penyedia</label>
       <select id="emoneyProvider">
         <option value="GoPay">GoPay</option>
         <option value="OVO">OVO</option>
@@ -933,9 +827,9 @@
         <option value="ShopeePay">ShopeePay</option>
         <option value="LinkAja">LinkAja</option>
       </select>
-      <label>Nomor HP Tujuan</label>
-      <input type="tel" id="emoneyPhone" inputmode="numeric" maxlength="13" placeholder="Contoh: 08123456789" />
-      <label>Nominal Top Up</label>
+      <label data-i18n="labelEmoneyPhone">Nomor HP Tujuan</label>
+      <input type="tel" id="emoneyPhone" inputmode="numeric" maxlength="13" data-i18n-ph="phPhone" placeholder="Contoh: 08123456789" />
+      <label data-i18n="labelEmoneyAmount">Nominal Top Up</label>
       <select id="emoneyNominal">
         <option value="50000">Rp 50.000</option>
         <option value="100000">Rp 100.000</option>
@@ -943,69 +837,237 @@
         <option value="300000">Rp 300.000</option>
         <option value="500000">Rp 500.000</option>
       </select>
-      <button onclick="payEmoney()">Top Up</button>
-      <button class="btn-secondary" onclick="closeModal('emoneyModal')">Batal</button>
+      <button onclick="payEmoney()" data-i18n="btnTopup">Top Up</button>
+      <button class="btn-secondary" onclick="closeModal('emoneyModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP TIKET PESAWAT ========== -->
   <div class="modal-overlay hidden" id="pesawatModal">
     <div class="modal-card">
-      <h3>✈️ Tiket Pesawat</h3>
-      <label>Kota Asal</label>
-      <input type="text" id="pesawatFrom" placeholder="Contoh: Jakarta" />
-      <label>Kota Tujuan</label>
-      <input type="text" id="pesawatTo" placeholder="Contoh: Surabaya" />
-      <label>Tanggal Berangkat</label>
+      <h3 data-i18n="pesawatTitle">✈️ Tiket Pesawat</h3>
+      <label data-i18n="labelFrom">Kota Asal</label>
+      <input type="text" id="pesawatFrom" data-i18n-ph="phFrom" placeholder="Contoh: Jakarta" />
+      <label data-i18n="labelTo">Kota Tujuan</label>
+      <input type="text" id="pesawatTo" data-i18n-ph="phTo" placeholder="Contoh: Surabaya" />
+      <label data-i18n="labelDate">Tanggal Berangkat</label>
       <input type="date" id="pesawatDate" />
-      <label>Jumlah Penumpang</label>
+      <label data-i18n="labelPax">Jumlah Penumpang</label>
       <input type="number" id="pesawatPax" min="1" max="10" value="1" />
       <div class="otp-demo-note hidden" id="pesawatQuote"></div>
-      <button onclick="cekHargaTiket('pesawat')">Cek Harga</button>
-      <button onclick="buyTicket('pesawat')">Beli Tiket</button>
-      <button class="btn-secondary" onclick="closeModal('pesawatModal')">Batal</button>
+      <button onclick="cekHargaTiket('pesawat')" data-i18n="btnCheckPrice">Cek Harga</button>
+      <button onclick="buyTicket('pesawat')" data-i18n="btnBuyTicket">Beli Tiket</button>
+      <button class="btn-secondary" onclick="closeModal('pesawatModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP TIKET KERETA ========== -->
   <div class="modal-overlay hidden" id="keretaModal">
     <div class="modal-card">
-      <h3>🚆 Tiket Kereta Api</h3>
-      <label>Kota Asal</label>
-      <input type="text" id="keretaFrom" placeholder="Contoh: Bandung" />
-      <label>Kota Tujuan</label>
-      <input type="text" id="keretaTo" placeholder="Contoh: Yogyakarta" />
-      <label>Tanggal Berangkat</label>
+      <h3 data-i18n="keretaTitle">🚆 Tiket Kereta Api</h3>
+      <label data-i18n="labelFrom">Kota Asal</label>
+      <input type="text" id="keretaFrom" data-i18n-ph="phFrom" placeholder="Contoh: Jakarta" />
+      <label data-i18n="labelTo">Kota Tujuan</label>
+      <input type="text" id="keretaTo" data-i18n-ph="phTo" placeholder="Contoh: Surabaya" />
+      <label data-i18n="labelDate">Tanggal Berangkat</label>
       <input type="date" id="keretaDate" />
-      <label>Jumlah Penumpang</label>
+      <label data-i18n="labelPax">Jumlah Penumpang</label>
       <input type="number" id="keretaPax" min="1" max="10" value="1" />
       <div class="otp-demo-note hidden" id="keretaQuote"></div>
-      <button onclick="cekHargaTiket('kereta')">Cek Harga</button>
-      <button onclick="buyTicket('kereta')">Beli Tiket</button>
-      <button class="btn-secondary" onclick="closeModal('keretaModal')">Batal</button>
+      <button onclick="cekHargaTiket('kereta')" data-i18n="btnCheckPrice">Cek Harga</button>
+      <button onclick="buyTicket('kereta')" data-i18n="btnBuyTicket">Beli Tiket</button>
+      <button class="btn-secondary" onclick="closeModal('keretaModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <!-- ========== POPUP TIKET BUS ========== -->
   <div class="modal-overlay hidden" id="busModal">
     <div class="modal-card">
-      <h3>🚌 Tiket Bus</h3>
-      <label>Kota Asal</label>
-      <input type="text" id="busFrom" placeholder="Contoh: Semarang" />
-      <label>Kota Tujuan</label>
-      <input type="text" id="busTo" placeholder="Contoh: Malang" />
-      <label>Tanggal Berangkat</label>
+      <h3 data-i18n="busTitle">🚌 Tiket Bus</h3>
+      <label data-i18n="labelFrom">Kota Asal</label>
+      <input type="text" id="busFrom" data-i18n-ph="phFrom" placeholder="Contoh: Jakarta" />
+      <label data-i18n="labelTo">Kota Tujuan</label>
+      <input type="text" id="busTo" data-i18n-ph="phTo" placeholder="Contoh: Surabaya" />
+      <label data-i18n="labelDate">Tanggal Berangkat</label>
       <input type="date" id="busDate" />
-      <label>Jumlah Penumpang</label>
+      <label data-i18n="labelPax">Jumlah Penumpang</label>
       <input type="number" id="busPax" min="1" max="10" value="1" />
       <div class="otp-demo-note hidden" id="busQuote"></div>
-      <button onclick="cekHargaTiket('bus')">Cek Harga</button>
-      <button onclick="buyTicket('bus')">Beli Tiket</button>
-      <button class="btn-secondary" onclick="closeModal('busModal')">Batal</button>
+      <button onclick="cekHargaTiket('bus')" data-i18n="btnCheckPrice">Cek Harga</button>
+      <button onclick="buyTicket('bus')" data-i18n="btnBuyTicket">Beli Tiket</button>
+      <button class="btn-secondary" onclick="closeModal('busModal')" data-i18n="btnCancel">Batal</button>
     </div>
   </div>
 
   <script>
+    /* ========== KAMUS BAHASA ========== */
+    const I18N = {
+      id: {
+        days: ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"],
+        months: ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],
+        labelPhone:"Nomor HP", phPhone:"Contoh: 08123456789", btnSendOtp:"Kirim Kode OTP",
+        labelOtp:"Kode OTP", phOtp:"Masukkan 6 digit OTP", btnLogin:"Masuk",
+        pinSetupTitle:"Buat PIN Transaksi", pinSetupSubtitle:"PIN 6 digit digunakan untuk mengamankan transaksimu",
+        labelNewPin:"PIN Baru (6 digit)", labelConfirmPin:"Ulangi PIN", btnSavePin:"Simpan PIN",
+        balanceLabel:"Saldo Anda", actDeposit:"Deposit", actWithdraw:"Withdraw", actTransfer:"Transfer",
+        btnCopy:"Salin", vcardHolderLabel:"Pemegang", vcardExpiryLabel:"Berlaku",
+        payTitle:"Pembayaran & Tagihan",
+        menuListrik:"Listrik", menuPdam:"PDAM", menuPulsa:"Pulsa", menuXyzpay:"XYZ Pay", menuEmoney:"E-Money",
+        menuPesawat:"Pesawat", menuKereta:"Kereta", menuBus:"Bus",
+        lastTransTitle:"Transaksi Terakhir", btnSeeAll:"Lihat Semua", emptyTrans:"Belum ada transaksi",
+        pageAktivitas:"Aktivitas", pageQris:"QRIS", qrNote:"QR demo untuk tampilan saja",
+        labelMerchant:"Nama Merchant", labelPayAmount:"Nominal Pembayaran", phPayAmount:"Contoh: 25000", btnPay:"Bayar",
+        pageDompet:"Dompet", topupTitle:"Top Up", labelTopup:"Nominal Top Up", phTopup:"Contoh: 50000", btnTopup:"Top Up",
+        transferTitle:"Transfer", labelTarget:"Nama Tujuan", phTarget:"Contoh: Nurlaili",
+        labelTransferAmount:"Nominal Transfer", phTransferAmount:"Contoh: 20000", btnTransfer:"Transfer",
+        pageProfil:"Profil", profileDesc:"Pengguna XYZ Wallet", langTitle:"Bahasa", themeTitle:"Tema Aplikasi",
+        themeUngu:"Ungu", themeBiru:"Biru", themeMerah:"Merah", themeEmas:"Emas",
+        btnChangePin:"Ganti PIN Transaksi", btnLogout:"Keluar",
+        navHome:"HOME", navAktivitas:"AKTIVITAS", navQris:"QRIS", navDompet:"DOMPET", navProfil:"PROFIL",
+        pinModalTitle:"Masukkan PIN Transaksi", btnConfirm:"Konfirmasi", btnCancel:"Batal",
+        changePinTitle:"Ganti PIN", phOldPin:"PIN lama", phNewPin:"PIN baru 6 digit", phConfirmNewPin:"Ulangi PIN baru", btnSave:"Simpan",
+        withdrawTitle:"💵 Tarik Tunai", labelWithdraw:"Nominal Tarik", phWithdraw:"Contoh: 100000", btnWithdraw:"Tarik",
+        receiptTitle:"Struk Transaksi", receiptStatus:"✔ SUKSES",
+        rService:"Layanan", rAmount:"Nominal", rAdmin:"Biaya Admin", rSource:"Sumber Dana", rSourceVal:"Saldo XYZ",
+        rTime:"Waktu", rId:"ID Transaksi", receiptNote:"Simpan struk ini sebagai bukti transaksi yang sah",
+        btnCopyReceipt:"Salin Struk", btnClose:"Tutup",
+        listrikTitle:"⚡ Token Listrik", labelMeter:"ID Pelanggan / Nomor Meter", phMeter:"Contoh: 123456789012",
+        labelToken:"Nominal Token", btnBuyToken:"Beli Token",
+        pdamTitle:"💧 Tagihan PDAM", labelPdam:"Nomor Pelanggan PDAM", phPdam:"Contoh: 08123456",
+        btnCheckBill:"Cek Tagihan", btnPayBill:"Bayar Tagihan",
+        pulsaTitle:"📱 Beli Pulsa", labelPulsaPhone:"Nomor HP", labelPulsa:"Nominal Pulsa", btnBuyPulsa:"Beli Pulsa",
+        labelXyzpay:"Nomor HP Pengguna XYZ Tujuan", labelXyzpayAmount:"Nominal Pembayaran", phXyzpay:"Contoh: 75000",
+        labelProvider:"Penyedia", labelEmoneyPhone:"Nomor HP Tujuan", labelEmoneyAmount:"Nominal Top Up",
+        pesawatTitle:"✈️ Tiket Pesawat", keretaTitle:"🚆 Tiket Kereta Api", busTitle:"🚌 Tiket Bus",
+        labelFrom:"Kota Asal", labelTo:"Kota Tujuan", phFrom:"Contoh: Jakarta", phTo:"Contoh: Surabaya",
+        labelDate:"Tanggal Berangkat", labelPax:"Jumlah Penumpang",
+        btnCheckPrice:"Cek Harga", btnBuyTicket:"Beli Tiket",
+        /* pesan dinamis */
+        errPhone:"Masukkan nomor HP yang valid (diawali 0, 10-13 digit).",
+        otpVirtual:"OTP virtual Anda: ", errOtp:"Kode OTP salah. Coba lagi.",
+        errPin6:"PIN harus 6 digit angka.", errPinMatch:"Konfirmasi PIN tidak sama.",
+        pinCreated:"PIN berhasil dibuat!", errOldPin:"PIN lama salah.", pinChanged:"PIN berhasil diganti!", errPin:"PIN salah.",
+        cardCopied:"Nomor kartu disalin!", cardNumber:"Nomor kartu: ", receiptCopied:"Struk disalin!",
+        errAmount:"Masukkan nominal yang valid.", errBalance:"Saldo tidak cukup.",
+        topupOk:"Top up berhasil!", trxTopup:"Top Up Saldo",
+        errTarget:"Masukkan nama tujuan transfer.", transferOk:"Transfer ke {x} berhasil!", trxTransfer:"Transfer ke {x}",
+        withdrawOk:"Tarik tunai {x} berhasil!", trxWithdraw:"Tarik Tunai",
+        qrisOk:"Pembayaran QRIS ke {x} berhasil!", trxQris:"QRIS: {x}",
+        errMeter:"Masukkan ID pelanggan yang valid (8-12 digit).",
+        listrikOk:"Pembelian token listrik berhasil!\nKode token: {x}", trxListrik:"Token Listrik: {x}",
+        errPdam:"Masukkan nomor pelanggan PDAM yang valid (6-10 digit).",
+        pdamBill:"Tagihan PDAM {x} : {y}", errCheckFirst:"Cek tagihan terlebih dahulu.",
+        pdamOk:"Pembayaran PDAM berhasil!", trxPdam:"PDAM: {x}",
+        errPhoneValid:"Masukkan nomor HP yang valid.",
+        pulsaOk:"Pembelian pulsa {x} ke {y} berhasil!", trxPulsa:"Pulsa: {x}",
+        xyzpayOk:"Pembayaran XYZ Pay ke {x} berhasil!", trxXyzpay:"XYZPay ke {x}",
+        emoneyOk:"Top up {p} {x} ke {y} berhasil!", trxEmoney:"Top Up {p}: {x}",
+        errCities:"Isi kota asal dan kota tujuan.", errSameCity:"Kota asal dan tujuan harus berbeda.",
+        errDate:"Pilih tanggal perjalanan.", errPax:"Jumlah penumpang minimal 1.",
+        namePesawat:"Tiket Pesawat", nameKereta:"Tiket Kereta", nameBus:"Tiket Bus",
+        ticketLabel:"{name}: {from} \u2192 {to} ({pax} pax)",
+        quoteText:"{name} | {from} \u2192 {to} | {pax} penumpang | Total: {total}",
+        errCheckPrice:"Cek harga terlebih dahulu.",
+        ticketOk:"Pembelian {x} berhasil!\nTiket elektronik telah diterbitkan (simulasi).",
+        receiptHead:"STRUK XYZ", rStatusLine:"Status  : SUKSES", rServiceLine:"Layanan : {x}",
+        rAmountLine:"Nominal : {x}", rAdminLine:"Admin   : Rp 0", rSourceLine:"Sumber  : Saldo XYZ",
+        rTimeLine:"Waktu   : {x}", rIdLine:"ID      : {x}", receiptThanks:"Terima kasih telah menggunakan XYZ."
+      },
+      en: {
+        days: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        labelPhone:"Phone Number", phPhone:"e.g. 08123456789", btnSendOtp:"Send OTP Code",
+        labelOtp:"OTP Code", phOtp:"Enter 6-digit OTP", btnLogin:"Sign In",
+        pinSetupTitle:"Create Transaction PIN", pinSetupSubtitle:"A 6-digit PIN secures your transactions",
+        labelNewPin:"New PIN (6 digits)", labelConfirmPin:"Repeat PIN", btnSavePin:"Save PIN",
+        balanceLabel:"Your Balance", actDeposit:"Deposit", actWithdraw:"Withdraw", actTransfer:"Transfer",
+        btnCopy:"Copy", vcardHolderLabel:"Holder", vcardExpiryLabel:"Expires",
+        payTitle:"Bills & Payments",
+        menuListrik:"Electricity", menuPdam:"Water", menuPulsa:"Credit", menuXyzpay:"XYZ Pay", menuEmoney:"E-Money",
+        menuPesawat:"Flights", menuKereta:"Trains", menuBus:"Bus",
+        lastTransTitle:"Recent Transactions", btnSeeAll:"View All", emptyTrans:"No transactions yet",
+        pageAktivitas:"Activity", pageQris:"QRIS", qrNote:"Demo QR for display only",
+        labelMerchant:"Merchant Name", labelPayAmount:"Payment Amount", phPayAmount:"e.g. 25000", btnPay:"Pay",
+        pageDompet:"Wallet", topupTitle:"Top Up", labelTopup:"Top Up Amount", phTopup:"e.g. 50000", btnTopup:"Top Up",
+        transferTitle:"Transfer", labelTarget:"Recipient Name", phTarget:"e.g. Nurlaili",
+        labelTransferAmount:"Transfer Amount", phTransferAmount:"e.g. 20000", btnTransfer:"Transfer",
+        pageProfil:"Profile", profileDesc:"XYZ Wallet User", langTitle:"Language", themeTitle:"App Theme",
+        themeUngu:"Purple", themeBiru:"Blue", themeMerah:"Red", themeEmas:"Gold",
+        btnChangePin:"Change Transaction PIN", btnLogout:"Log Out",
+        navHome:"HOME", navAktivitas:"ACTIVITY", navQris:"QRIS", navDompet:"WALLET", navProfil:"PROFILE",
+        pinModalTitle:"Enter Transaction PIN", btnConfirm:"Confirm", btnCancel:"Cancel",
+        changePinTitle:"Change PIN", phOldPin:"Old PIN", phNewPin:"New 6-digit PIN", phConfirmNewPin:"Repeat new PIN", btnSave:"Save",
+        withdrawTitle:"💵 Cash Withdrawal", labelWithdraw:"Withdrawal Amount", phWithdraw:"e.g. 100000", btnWithdraw:"Withdraw",
+        receiptTitle:"Transaction Receipt", receiptStatus:"✔ SUCCESS",
+        rService:"Service", rAmount:"Amount", rAdmin:"Admin Fee", rSource:"Funding Source", rSourceVal:"XYZ Balance",
+        rTime:"Time", rId:"Transaction ID", receiptNote:"Keep this receipt as proof of transaction",
+        btnCopyReceipt:"Copy Receipt", btnClose:"Close",
+        listrikTitle:"⚡ Electricity Token", labelMeter:"Customer ID / Meter Number", phMeter:"e.g. 123456789012",
+        labelToken:"Token Amount", btnBuyToken:"Buy Token",
+        pdamTitle:"💧 Water Bill (PDAM)", labelPdam:"PDAM Customer Number", phPdam:"e.g. 08123456",
+        btnCheckBill:"Check Bill", btnPayBill:"Pay Bill",
+        pulsaTitle:"📱 Buy Mobile Credit", labelPulsaPhone:"Phone Number", labelPulsa:"Credit Amount", btnBuyPulsa:"Buy Credit",
+        labelXyzpay:"Recipient XYZ User Phone Number", labelXyzpayAmount:"Payment Amount", phXyzpay:"e.g. 75000",
+        labelProvider:"Provider", labelEmoneyPhone:"Recipient Phone Number", labelEmoneyAmount:"Top Up Amount",
+        pesawatTitle:"✈️ Flight Ticket", keretaTitle:"🚆 Train Ticket", busTitle:"🚌 Bus Ticket",
+        labelFrom:"Origin City", labelTo:"Destination City", phFrom:"e.g. Jakarta", phTo:"e.g. Surabaya",
+        labelDate:"Departure Date", labelPax:"Passengers",
+        btnCheckPrice:"Check Price", btnBuyTicket:"Buy Ticket",
+        /* dynamic messages */
+        errPhone:"Enter a valid phone number (starts with 0, 10-13 digits).",
+        otpVirtual:"Your virtual OTP: ", errOtp:"Wrong OTP code. Try again.",
+        errPin6:"PIN must be 6 digits.", errPinMatch:"PIN confirmation does not match.",
+        pinCreated:"PIN created successfully!", errOldPin:"Old PIN is wrong.", pinChanged:"PIN changed successfully!", errPin:"Wrong PIN.",
+        cardCopied:"Card number copied!", cardNumber:"Card number: ", receiptCopied:"Receipt copied!",
+        errAmount:"Enter a valid amount.", errBalance:"Insufficient balance.",
+        topupOk:"Top up successful!", trxTopup:"Balance Top Up",
+        errTarget:"Enter recipient name.", transferOk:"Transfer to {x} successful!", trxTransfer:"Transfer to {x}",
+        withdrawOk:"Cash withdrawal of {x} successful!", trxWithdraw:"Cash Withdrawal",
+        qrisOk:"QRIS payment to {x} successful!", trxQris:"QRIS: {x}",
+        errMeter:"Enter a valid customer ID (8-12 digits).",
+        listrikOk:"Electricity token purchase successful!\nToken code: {x}", trxListrik:"Electricity Token: {x}",
+        errPdam:"Enter a valid PDAM customer number (6-10 digits).",
+        pdamBill:"PDAM bill {x} : {y}", errCheckFirst:"Check the bill first.",
+        pdamOk:"PDAM payment successful!", trxPdam:"PDAM: {x}",
+        errPhoneValid:"Enter a valid phone number.",
+        pulsaOk:"Mobile credit purchase of {x} to {y} successful!", trxPulsa:"Mobile Credit: {x}",
+        xyzpayOk:"XYZ Pay payment to {x} successful!", trxXyzpay:"XYZPay to {x}",
+        emoneyOk:"Top up {p} {x} to {y} successful!", trxEmoney:"Top Up {p}: {x}",
+        errCities:"Fill in origin and destination cities.", errSameCity:"Origin and destination must be different.",
+        errDate:"Select a travel date.", errPax:"At least 1 passenger.",
+        namePesawat:"Flight Ticket", nameKereta:"Train Ticket", nameBus:"Bus Ticket",
+        ticketLabel:"{name}: {from} \u2192 {to} ({pax} pax)",
+        quoteText:"{name} | {from} \u2192 {to} | {pax} passenger(s) | Total: {total}",
+        errCheckPrice:"Check the price first.",
+        ticketOk:"{x} purchase successful!\nE-ticket has been issued (simulation).",
+        receiptHead:"XYZ RECEIPT", rStatusLine:"Status  : SUCCESS", rServiceLine:"Service : {x}",
+        rAmountLine:"Amount  : {x}", rAdminLine:"Admin   : Rp 0", rSourceLine:"Source  : XYZ Balance",
+        rTimeLine:"Time    : {x}", rIdLine:"ID      : {x}", receiptThanks:"Thank you for using XYZ."
+      }
+    };
+
+    let lang = localStorage.getItem("xyz_lang") || "id";
+    function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.id[key] || key; }
+    function fmt(key, obj) {
+      return t(key).replace(/\{(\w+)\}/g, function (m, k) { return obj[k] !== undefined ? obj[k] : m; });
+    }
+
+    function applyLang() {
+      document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
+      document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-ph")); });
+      document.querySelectorAll(".lang-btn").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+      });
+      renderTransactions();
+    }
+
+    function setLang(l) {
+      lang = l;
+      localStorage.setItem("xyz_lang", l);
+      applyLang();
+    }
+
+    /* ========== STATE ========== */
     let balance = 0;
     let transactions = [];
     let generatedOtp = null;
@@ -1019,14 +1081,14 @@
     /* ========== TOAST ========== */
     function showToast(msg) {
       const container = document.getElementById("toastContainer");
-      const t = document.createElement("div");
-      const isError = /gagal|salah|tidak|masukkan|cek|isi|pilih|valid|kurang/i.test(msg);
-      t.className = "toast " + (isError ? "toast-error" : "toast-success");
-      t.textContent = msg;
-      container.appendChild(t);
+      const tEl = document.createElement("div");
+      const isError = /gagal|salah|tidak|masukkan|cek|isi|pilih|valid|kurang|wrong|invalid|enter|insufficient|select|fill|must|failed|check|match|different|least/i.test(msg);
+      tEl.className = "toast " + (isError ? "toast-error" : "toast-success");
+      tEl.textContent = msg;
+      container.appendChild(tEl);
       setTimeout(function () {
-        t.classList.add("toast-hide");
-        setTimeout(function () { t.remove(); }, 300);
+        tEl.classList.add("toast-hide");
+        setTimeout(function () { tEl.remove(); }, 300);
       }, 3000);
     }
     window.alert = function (msg) { showToast(String(msg)); };
@@ -1093,9 +1155,9 @@
     function copyCardNumber() {
       const card = getCard();
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(card).then(function () { alert("Nomor kartu disalin!"); });
+        navigator.clipboard.writeText(card).then(function () { alert(t("cardCopied")); });
       } else {
-        alert("Nomor kartu: " + card);
+        alert(t("cardNumber") + card);
       }
     }
 
@@ -1136,20 +1198,21 @@
 
     function copyReceipt() {
       if (!currentReceipt) return;
+      const r = currentReceipt;
       const text =
-        "STRUK XYZ WALLET\n" +
+        t("receiptHead") + "\n" +
         "--------------------------\n" +
-        "Status  : SUKSES\n" +
-        "Layanan : " + currentReceipt.title + "\n" +
-        "Nominal : " + currentReceipt.amount + "\n" +
-        "Admin   : Rp 0\n" +
-        "Sumber  : Saldo XYZ\n" +
-        "Waktu   : " + currentReceipt.time + "\n" +
-        "ID      : " + currentReceipt.id + "\n" +
+        t("rStatusLine") + "\n" +
+        fmt("rServiceLine", { x: r.title }) + "\n" +
+        fmt("rAmountLine", { x: r.amount }) + "\n" +
+        t("rAdminLine") + "\n" +
+        t("rSourceLine") + "\n" +
+        fmt("rTimeLine", { x: r.time }) + "\n" +
+        fmt("rIdLine", { x: r.id }) + "\n" +
         "--------------------------\n" +
-        "Terima kasih telah menggunakan XYZ Wallet.";
+        t("receiptThanks");
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(function () { alert("Struk disalin!"); });
+        navigator.clipboard.writeText(text).then(function () { alert(t("receiptCopied")); });
       } else {
         alert(text);
       }
@@ -1175,9 +1238,9 @@
     /* ========== LOGIN ========== */
     function sendOtp() {
       const phone = document.getElementById("phoneInput").value.trim();
-      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP yang valid (diawali 0, 10-13 digit)."); return; }
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert(t("errPhone")); return; }
       generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
-      document.getElementById("otpDemoNote").textContent = "OTP virtual Anda: " + generatedOtp;
+      document.getElementById("otpDemoNote").textContent = t("otpVirtual") + generatedOtp;
       document.getElementById("otpSection").classList.remove("hidden");
     }
 
@@ -1193,7 +1256,7 @@
           switchTab("home");
         }
       } else {
-        alert("Kode OTP salah. Coba lagi.");
+        alert(t("errOtp"));
       }
     }
 
@@ -1209,13 +1272,13 @@
     function savePin() {
       const pin1 = document.getElementById("newPinInput").value.trim();
       const pin2 = document.getElementById("confirmPinInput").value.trim();
-      if (!/^[0-9]{6}$/.test(pin1)) { alert("PIN harus 6 digit angka."); return; }
-      if (pin1 !== pin2) { alert("Konfirmasi PIN tidak sama."); return; }
+      if (!/^[0-9]{6}$/.test(pin1)) { alert(t("errPin6")); return; }
+      if (pin1 !== pin2) { alert(t("errPinMatch")); return; }
       localStorage.setItem("xyz_pin", pin1);
       document.getElementById("pinSetupScreen").classList.add("hidden");
       document.getElementById("appScreen").classList.remove("hidden");
       switchTab("home");
-      alert("PIN berhasil dibuat!");
+      alert(t("pinCreated"));
     }
 
     function openPinChange() {
@@ -1230,12 +1293,12 @@
       const oldP = document.getElementById("oldPinInput").value.trim();
       const newP = document.getElementById("newPinChangeInput").value.trim();
       const conf = document.getElementById("confirmPinChangeInput").value.trim();
-      if (oldP !== localStorage.getItem("xyz_pin")) { alert("PIN lama salah."); return; }
-      if (!/^[0-9]{6}$/.test(newP)) { alert("PIN baru harus 6 digit angka."); return; }
-      if (newP !== conf) { alert("Konfirmasi PIN tidak sama."); return; }
+      if (oldP !== localStorage.getItem("xyz_pin")) { alert(t("errOldPin")); return; }
+      if (!/^[0-9]{6}$/.test(newP)) { alert(t("errPin6")); return; }
+      if (newP !== conf) { alert(t("errPinMatch")); return; }
       localStorage.setItem("xyz_pin", newP);
       closePinChange();
-      alert("PIN berhasil diganti!");
+      alert(t("pinChanged"));
     }
 
     function requestPin(actionFn) {
@@ -1252,7 +1315,7 @@
         if (pendingAction) pendingAction();
         pendingAction = null;
       } else {
-        alert("PIN salah.");
+        alert(t("errPin"));
       }
     }
     function closePinModal() { document.getElementById("pinModal").classList.add("hidden"); }
@@ -1267,11 +1330,10 @@
     /* ========== JAM REAL TIME ========== */
     function updateDateTime() {
       const now = new Date();
-      const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-      const namaBulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
-        "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const days = I18N[lang].days;
+      const months = I18N[lang].months;
       document.getElementById("datetimeDisplay").textContent =
-        namaHari[now.getDay()] + ", " + now.getDate() + " " + namaBulan[now.getMonth()] + " " + now.getFullYear() +
+        days[now.getDay()] + ", " + now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear() +
         " • " + String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0") + ":" + String(now.getSeconds()).padStart(2, "0");
     }
     updateDateTime();
@@ -1297,13 +1359,13 @@
 
     function withdrawCash() {
       const amount = Number(document.getElementById("withdrawAmount").value);
-      if (!amount || amount <= 0) { alert("Masukkan nominal tarik tunai yang valid."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!amount || amount <= 0) { alert(t("errAmount")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("Tarik Tunai", amount);
+        addTransaction(t("trxWithdraw"), amount);
         closeModal("withdrawModal");
-        alert("Tarik tunai " + formatRupiah(amount) + " berhasil!");
+        alert(fmt("withdrawOk", { x: formatRupiah(amount) }));
       });
     }
 
@@ -1323,12 +1385,13 @@
     function renderTransactions() {
       const list = document.getElementById("transactionList");
       const homeList = document.getElementById("homeTransactionList");
+      const empty = '<div class="empty-state">' + t("emptyTrans") + "</div>";
       if (transactions.length === 0) {
-        list.innerHTML = '<div class="empty-state">Belum ada transaksi</div>';
-        homeList.innerHTML = '<div class="empty-state">Belum ada transaksi</div>';
+        list.innerHTML = empty;
+        homeList.innerHTML = empty;
       } else {
-        list.innerHTML = transactions.map((t, i) => transactionItemHTML(t, i)).join("");
-        homeList.innerHTML = transactions.slice(0, 3).map((t, i) => transactionItemHTML(t, i)).join("");
+        list.innerHTML = transactions.map((tr, i) => transactionItemHTML(tr, i)).join("");
+        homeList.innerHTML = transactions.slice(0, 3).map((tr, i) => transactionItemHTML(tr, i)).join("");
       }
     }
 
@@ -1340,39 +1403,39 @@
     function topUp() {
       const amountInput = document.getElementById("topupAmount");
       const amount = Number(amountInput.value);
-      if (!amount || amount <= 0) { alert("Masukkan nominal top up yang valid."); return; }
+      if (!amount || amount <= 0) { alert(t("errAmount")); return; }
       balance += amount;
-      transactions.unshift({ id: generateId(), title: "Top Up Saldo", time: new Date().toLocaleString("id-ID"), amount, type: "in" });
+      transactions.unshift({ id: generateId(), title: t("trxTopup"), time: new Date().toLocaleString("id-ID"), amount, type: "in" });
       amountInput.value = "";
       updateBalanceDisplay(); renderTransactions(); saveState();
-      alert("Top up berhasil!");
+      alert(t("topupOk"));
     }
 
     function startTransfer() {
       const targetName = document.getElementById("targetName").value.trim();
       const amount = Number(document.getElementById("transferAmount").value);
-      if (!targetName) { alert("Masukkan nama tujuan transfer."); return; }
-      if (!amount || amount <= 0) { alert("Masukkan nominal transfer yang valid."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!targetName) { alert(t("errTarget")); return; }
+      if (!amount || amount <= 0) { alert(t("errAmount")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("Transfer ke " + targetName, amount);
+        addTransaction(fmt("trxTransfer", { x: targetName }), amount);
         document.getElementById("targetName").value = "";
         document.getElementById("transferAmount").value = "";
-        alert("Transfer ke " + targetName + " berhasil!");
+        alert(fmt("transferOk", { x: targetName }));
       });
     }
 
     function payQris() {
       const merchant = document.getElementById("merchantInput").value.trim() || "Merchant QRIS";
       const amount = Number(document.getElementById("qrisAmount").value);
-      if (!amount || amount <= 0) { alert("Masukkan nominal pembayaran yang valid."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!amount || amount <= 0) { alert(t("errAmount")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("QRIS: " + merchant, amount);
+        addTransaction(fmt("trxQris", { x: merchant }), amount);
         document.getElementById("qrisAmount").value = "";
-        alert("Pembayaran QRIS ke " + merchant + " berhasil!");
+        alert(fmt("qrisOk", { x: merchant }));
       });
     }
 
@@ -1397,50 +1460,50 @@
     function payListrik() {
       const id = document.getElementById("listrikId").value.trim();
       const amount = Number(document.getElementById("listrikNominal").value);
-      if (!/^[0-9]{8,12}$/.test(id)) { alert("Masukkan ID pelanggan yang valid (8-12 digit)."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!/^[0-9]{8,12}$/.test(id)) { alert(t("errMeter")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("Token Listrik: " + id, amount);
+        addTransaction(fmt("trxListrik", { x: id }), amount);
         closeModal("listrikModal");
-        alert("Pembelian token listrik berhasil!\nKode token: " + generateToken());
+        alert(fmt("listrikOk", { x: generateToken() }));
       });
     }
 
     function cekTagihanPdam() {
       const id = document.getElementById("pdamId").value.trim();
-      if (!/^[0-9]{6,10}$/.test(id)) { alert("Masukkan nomor pelanggan PDAM yang valid (6-10 digit)."); return; }
+      if (!/^[0-9]{6,10}$/.test(id)) { alert(t("errPdam")); return; }
       const lastTwo = Number(id.slice(-2));
       pdamBill = 45000 + lastTwo * 1000;
       const info = document.getElementById("pdamBillInfo");
-      info.textContent = "Tagihan PDAM " + id + " : " + formatRupiah(pdamBill);
+      info.textContent = fmt("pdamBill", { x: id, y: formatRupiah(pdamBill) });
       info.classList.remove("hidden");
     }
 
     function payPdam() {
       const id = document.getElementById("pdamId").value.trim();
-      if (!id || !pdamBill) { alert("Cek tagihan terlebih dahulu."); return; }
-      if (pdamBill > balance) { alert("Saldo tidak cukup."); return; }
+      if (!id || !pdamBill) { alert(t("errCheckFirst")); return; }
+      if (pdamBill > balance) { alert(t("errBalance")); return; }
       const amount = pdamBill;
       requestPin(function () {
         balance -= amount;
-        addTransaction("PDAM: " + id, amount);
+        addTransaction(fmt("trxPdam", { x: id }), amount);
         pdamBill = 0;
         closeModal("pdamModal");
-        alert("Pembayaran PDAM berhasil!");
+        alert(t("pdamOk"));
       });
     }
 
     function buyPulsa() {
       const phone = document.getElementById("pulsaPhone").value.trim();
       const amount = Number(document.getElementById("pulsaNominal").value);
-      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP yang valid."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert(t("errPhoneValid")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("Pulsa: " + phone, amount);
+        addTransaction(fmt("trxPulsa", { x: phone }), amount);
         closeModal("pulsaModal");
-        alert("Pembelian pulsa " + formatRupiah(amount) + " ke " + phone + " berhasil!");
+        alert(fmt("pulsaOk", { x: formatRupiah(amount), y: phone }));
       });
     }
 
@@ -1454,14 +1517,14 @@
     function payXyzpay() {
       const phone = document.getElementById("xyzpayPhone").value.trim();
       const amount = Number(document.getElementById("xyzpayAmount").value);
-      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP tujuan yang valid."); return; }
-      if (!amount || amount <= 0) { alert("Masukkan nominal yang valid."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert(t("errPhoneValid")); return; }
+      if (!amount || amount <= 0) { alert(t("errAmount")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("XYZPay ke " + phone, amount);
+        addTransaction(fmt("trxXyzpay", { x: phone }), amount);
         closeModal("xyzpayModal");
-        alert("Pembayaran XYZ Pay ke " + phone + " berhasil!");
+        alert(fmt("xyzpayOk", { x: phone }));
       });
     }
 
@@ -1475,13 +1538,13 @@
       const provider = document.getElementById("emoneyProvider").value;
       const phone = document.getElementById("emoneyPhone").value.trim();
       const amount = Number(document.getElementById("emoneyNominal").value);
-      if (!/^0[0-9]{9,12}$/.test(phone)) { alert("Masukkan nomor HP yang valid."); return; }
-      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      if (!/^0[0-9]{9,12}$/.test(phone)) { alert(t("errPhoneValid")); return; }
+      if (amount > balance) { alert(t("errBalance")); return; }
       requestPin(function () {
         balance -= amount;
-        addTransaction("Top Up " + provider + ": " + phone, amount);
+        addTransaction(fmt("trxEmoney", { p: provider, x: phone }), amount);
         closeModal("emoneyModal");
-        alert("Top up " + provider + " " + formatRupiah(amount) + " ke " + phone + " berhasil!");
+        alert(fmt("emoneyOk", { p: provider, x: formatRupiah(amount), y: phone }));
       });
     }
 
@@ -1509,33 +1572,32 @@
       const date = document.getElementById(type + "Date").value;
       const pax = Number(document.getElementById(type + "Pax").value);
 
-      if (!from || !to) { alert("Isi kota asal dan kota tujuan."); return; }
-      if (from.toLowerCase() === to.toLowerCase()) { alert("Kota asal dan tujuan harus berbeda."); return; }
-      if (!date) { alert("Pilih tanggal perjalanan."); return; }
-      if (!pax || pax < 1) { alert("Jumlah penumpang minimal 1."); return; }
+      if (!from || !to) { alert(t("errCities")); return; }
+      if (from.toLowerCase() === to.toLowerCase()) { alert(t("errSameCity")); return; }
+      if (!date) { alert(t("errDate")); return; }
+      if (!pax || pax < 1) { alert(t("errPax")); return; }
 
       const h = routeHash(from, to);
       let base = 0, name = "";
-      if (type === "pesawat") { base = 450000 + (h % 500) * 1000; name = "Tiket Pesawat"; }
-      if (type === "kereta")  { base = 150000 + (h % 200) * 1000; name = "Tiket Kereta"; }
-      if (type === "bus")     { base = 80000 + (h % 120) * 1000;  name = "Tiket Bus"; }
+      if (type === "pesawat") { base = 450000 + (h % 500) * 1000; name = t("namePesawat"); }
+      if (type === "kereta")  { base = 150000 + (h % 200) * 1000; name = t("nameKereta"); }
+      if (type === "bus")     { base = 80000 + (h % 120) * 1000;  name = t("nameBus"); }
 
       const total = base * pax;
       ticketQuote = {
         type: type,
         price: total,
-        label: name + ": " + from.toUpperCase() + " \u2192 " + to.toUpperCase() + " (" + pax + " pax)"
+        label: fmt("ticketLabel", { name: name, from: from.toUpperCase(), to: to.toUpperCase(), pax: pax })
       };
 
       const info = document.getElementById(type + "Quote");
-      info.textContent = name + " | " + from.toUpperCase() + " \u2192 " + to.toUpperCase() +
-        " | " + pax + " penumpang | Total: " + formatRupiah(total);
+      info.textContent = fmt("quoteText", { name: name, from: from.toUpperCase(), to: to.toUpperCase(), pax: pax, total: formatRupiah(total) });
       info.classList.remove("hidden");
     }
 
     function buyTicket(type) {
-      if (!ticketQuote.type || ticketQuote.type !== type) { alert("Cek harga terlebih dahulu."); return; }
-      if (ticketQuote.price > balance) { alert("Saldo tidak cukup."); return; }
+      if (!ticketQuote.type || ticketQuote.type !== type) { alert(t("errCheckPrice")); return; }
+      if (ticketQuote.price > balance) { alert(t("errBalance")); return; }
       const price = ticketQuote.price;
       const label = ticketQuote.label;
       requestPin(function () {
@@ -1543,7 +1605,7 @@
         addTransaction(label, price);
         ticketQuote = { type: null, price: 0, label: "" };
         closeModal(type + "Modal");
-        alert("Pembelian " + label + " berhasil!\nTiket elektronik telah diterbitkan (simulasi).");
+        alert(fmt("ticketOk", { x: label }));
       });
     }
 
@@ -1581,6 +1643,7 @@
     /* ========== INIT ========== */
     setTheme(localStorage.getItem("xyz_theme") || "ungu");
     loadState();
+    applyLang();
     updateBalanceDisplay();
     renderTransactions();
     renderCard();
