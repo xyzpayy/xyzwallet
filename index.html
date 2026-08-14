@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>XYZ Wallet</title>
+  <title>XYZ</title>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Arial, sans-serif; }
@@ -78,6 +78,83 @@
 
     .hidden { display: none !important; }
 
+    /* ========== LOGO ========== */
+    .logo-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .header-title { display: flex; align-items: center; gap: 10px; }
+    .header-logo {
+      width: 40px; height: 40px; border-radius: 50%;
+      box-shadow: 0 0 14px var(--glow-strong);
+    }
+
+    /* ========== SPLASH SCREEN ========== */
+    .splash {
+      position: fixed; inset: 0; z-index: 200;
+      background: linear-gradient(160deg, var(--bg1), var(--bg2));
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.5s;
+    }
+    .splash-hide { opacity: 0; pointer-events: none; }
+
+    .splash-logo {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
+      color: white; font-weight: bold; font-size: 30px;
+      display: flex; align-items: center; justify-content: center;
+      animation: splashPulse 1.4s ease infinite;
+      overflow: hidden;
+    }
+
+    .splash-name {
+      margin-top: 16px; color: var(--text-main);
+      font-size: 20px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    .splash-loader {
+      width: 140px; height: 4px; border-radius: 2px;
+      background: rgba(255,255,255,0.15); overflow: hidden; margin-top: 20px;
+    }
+    .splash-loader::after {
+      content: ""; display: block; width: 40%; height: 100%;
+      background: linear-gradient(90deg, var(--grad2), var(--grad3));
+      border-radius: 2px; animation: splashLoad 1.2s infinite;
+    }
+
+    @keyframes splashPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px var(--glow-strong); }
+      50% { transform: scale(1.07); box-shadow: 0 0 50px var(--glow-strong); }
+    }
+    @keyframes splashLoad {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(350%); }
+    }
+
+    /* ========== TOAST ========== */
+    #toastContainer {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; gap: 8px; z-index: 300;
+      width: calc(100% - 40px); max-width: 400px; pointer-events: none;
+    }
+
+    .toast {
+      padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: bold;
+      color: white; box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      animation: toastIn 0.3s ease; white-space: pre-line; text-align: left;
+    }
+    .toast-success { background: linear-gradient(135deg, #059669, #34d399); }
+    .toast-error { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+    .toast-hide { opacity: 0; transform: translateY(-10px); transition: all 0.3s; }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* ========== LOGIN & PIN ========== */
     .login-screen { width: 100%; display: flex; justify-content: center; }
 
@@ -92,12 +169,13 @@
     }
 
     .login-logo {
-      width: 70px; height: 70px; border-radius: 20px;
+      width: 80px; height: 80px; border-radius: 50%;
       background: linear-gradient(135deg, var(--grad2), var(--grad3));
       color: white; font-weight: bold; font-size: 22px;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 12px;
       box-shadow: 0 0 30px var(--glow-strong);
+      overflow: hidden;
     }
 
     .login-card h2 { margin-bottom: 4px; color: var(--text-main); letter-spacing: 1px; }
@@ -165,6 +243,23 @@
 
     input[type="date"] { color-scheme: dark; }
 
+    /* ========== STRUK ========== */
+    .receipt-status { color: #34d399; font-weight: bold; letter-spacing: 3px; font-size: 13px; margin-bottom: 12px; }
+
+    .receipt-body {
+      border-top: 1px dashed var(--border-mid);
+      border-bottom: 1px dashed var(--border-mid);
+      padding: 12px 0; margin-bottom: 12px;
+    }
+
+    .receipt-row {
+      display: flex; justify-content: space-between; gap: 10px;
+      font-size: 12px; color: var(--text-dim); margin-bottom: 8px; text-align: left;
+    }
+    .receipt-row b { color: var(--text-main); text-align: right; }
+
+    #rBarcode { display: block; background: white; border-radius: 8px; margin: 0 auto 8px; }
+
     /* ========== APLIKASI UTAMA ========== */
     .app {
       width: 100%; max-width: 420px;
@@ -192,7 +287,6 @@
       color: var(--accent-light);
     }
 
-    /* KARTU SALDO: SALDO DI ATAS KANAN + 3 TOMBOL DI BAWAH */
     .balance-card {
       margin-top: 18px; background: rgba(255,255,255,0.10);
       border: 1px solid var(--border-light);
@@ -201,9 +295,7 @@
     }
 
     .balance-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-
     .balance-label { font-size: 12px; opacity: 0.85; letter-spacing: 2px; text-transform: uppercase; }
-
     .balance-right { display: flex; align-items: center; gap: 8px; }
 
     .balance-value {
@@ -237,6 +329,32 @@
 
     .icon-circle svg { stroke: var(--icon-stroke); }
     .ppob-item svg { stroke: var(--accent-soft); }
+
+    /* ========== KARTU VIRTUAL ========== */
+    .vcard {
+      background: linear-gradient(135deg, var(--grad1), var(--grad2) 60%, var(--grad3));
+      border-radius: 18px; padding: 18px; color: white;
+      margin-bottom: 18px; box-shadow: 0 0 24px var(--glow-soft);
+    }
+
+    .vcard-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .vcard-brand { font-weight: bold; letter-spacing: 2px; }
+    .vcard-chip { width: 40px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #fde68a, #f59e0b); }
+
+    .vcard-number {
+      display: flex; align-items: center; gap: 10px;
+      font-family: Consolas, Menlo, monospace; font-size: 17px; letter-spacing: 2px; margin-bottom: 16px;
+    }
+
+    .vcard-mini-btn {
+      width: auto; background: rgba(255,255,255,0.15); border: none; color: white;
+      border-radius: 8px; padding: 4px 8px; cursor: pointer; font-size: 11px; font-weight: bold;
+    }
+    .vcard-mini-btn:hover { background: rgba(255,255,255,0.3); }
+
+    .vcard-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
+    .vcard-label { font-size: 10px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+    .vcard-value { font-size: 13px; font-weight: bold; letter-spacing: 1px; }
 
     .page-header { background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3)); color: white; padding: 20px; }
     .page-header h2 {
@@ -302,8 +420,9 @@
       display: flex; justify-content: space-between; align-items: center;
       padding: 12px; border-radius: 12px;
       background: var(--surface3); border: 1px solid var(--border-soft);
-      margin-bottom: 10px;
+      margin-bottom: 10px; cursor: pointer;
     }
+    .transaction-item:hover { border-color: var(--accent-soft); }
 
     .transaction-info h4 { font-size: 14px; margin-bottom: 4px; color: var(--text-main); }
     .transaction-info p { font-size: 12px; color: var(--text-dim); }
@@ -323,6 +442,7 @@
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 10px; color: white;
       box-shadow: 0 0 24px var(--glow-strong);
+      overflow: hidden;
     }
     .profile-card h3 { color: var(--text-main); margin-bottom: 4px; font-family: Consolas, Menlo, monospace; }
     .profile-card p { font-size: 12px; color: #94a3b8; }
@@ -361,12 +481,28 @@
 </head>
 <body>
 
+  <!-- ========== SPLASH ========== -->
+  <div class="splash" id="splashScreen">
+    <div class="splash-logo">
+      <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+        onerror="var p=this.parentElement; this.remove(); p.textContent='XYZ';" />
+    </div>
+    <div class="splash-name">XYZ Wallet</div>
+    <div class="splash-loader"></div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div id="toastContainer"></div>
+
   <!-- ========== HALAMAN LOGIN ========== -->
   <div class="login-screen" id="loginScreen">
     <div class="login-card">
-      <div class="login-logo">XYZ</div>
+      <div class="login-logo">
+        <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+          onerror="var p=this.parentElement; this.remove(); p.textContent='XYZ';" />
+      </div>
       <h2>XYZ Wallet</h2>
-      <p class="login-subtitle">Masuk untuk melanjutkan</p>
+      <p class="login-subtitle">XYZ Secure Transactions</p>
 
       <label for="phoneInput">Nomor HP</label>
       <input type="tel" id="phoneInput" placeholder="Contoh: 08123456789" />
@@ -384,7 +520,10 @@
   <!-- ========== HALAMAN BUAT PIN ========== -->
   <div class="login-screen hidden" id="pinSetupScreen">
     <div class="login-card">
-      <div class="login-logo">PIN</div>
+      <div class="login-logo">
+        <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+          onerror="var p=this.parentElement; this.remove(); p.textContent='PIN';" />
+      </div>
       <h2>Buat PIN Transaksi</h2>
       <p class="login-subtitle">PIN 6 digit digunakan untuk mengamankan transaksimu</p>
 
@@ -404,11 +543,13 @@
     <!-- ===== HOME ===== -->
     <div class="page" id="pageHome">
       <div class="header">
-        <h1>XYZ Wallet</h1>
+        <div class="header-title">
+          <img src="logo.png" alt="" class="header-logo" onerror="this.style.display='none'" />
+          <h1>XYZ Wallet</h1>
+        </div>
         <div class="datetime" id="datetimeDisplay">Memuat waktu...</div>
 
         <div class="balance-card">
-          <!-- BARIS ATAS: LABEL KIRI, SALDO + ICON MATA KANAN -->
           <div class="balance-top">
             <div class="balance-label">Saldo Anda</div>
             <div class="balance-right">
@@ -427,7 +568,6 @@
             </div>
           </div>
 
-          <!-- BARIS BAWAH: DEPOSIT / WITHDRAW / TRANSFER -->
           <div class="balance-actions">
             <button class="action-btn" onclick="goDeposit()" title="Deposit">
               <span class="icon-circle">
@@ -460,6 +600,34 @@
       </div>
 
       <div class="content">
+        <div class="vcard">
+          <div class="vcard-top">
+            <div class="vcard-brand">XYZ CARD</div>
+            <div class="vcard-chip"></div>
+          </div>
+
+          <div class="vcard-number">
+            <span id="cardNumber">•••• •••• •••• ••••</span>
+            <button class="vcard-mini-btn" onclick="toggleCardNumber()" title="Lihat / sembunyikan nomor">👁</button>
+            <button class="vcard-mini-btn" onclick="copyCardNumber()" title="Salin nomor kartu">Salin</button>
+          </div>
+
+          <div class="vcard-bottom">
+            <div>
+              <div class="vcard-label">Pemegang</div>
+              <div class="vcard-value">PENGGUNA XYZ</div>
+            </div>
+            <div>
+              <div class="vcard-label">Berlaku</div>
+              <div class="vcard-value">08/29</div>
+            </div>
+            <div>
+              <div class="vcard-label">CVV</div>
+              <div class="vcard-value">•••</div>
+            </div>
+          </div>
+        </div>
+
         <div class="section-title">Pembayaran & Tagihan</div>
         <div class="ppob-grid">
           <button class="ppob-item" onclick="openListrik()">
@@ -572,7 +740,8 @@
       <div class="content">
         <div class="card profile-card">
           <div class="profile-avatar">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+            <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'" />
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" style="position:absolute;">
               <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
             </svg>
           </div>
@@ -580,7 +749,6 @@
           <p>Pengguna XYZ Wallet</p>
         </div>
 
-        <!-- PEMILIH TEMA -->
         <div class="card">
           <div class="section-title" style="margin-bottom: 10px;">Tema Aplikasi</div>
           <div class="theme-grid">
@@ -651,7 +819,7 @@
     </div>
   </div>
 
-  <!-- ========== POPUP TARIK TUNAI (WITHDRAW) ========== -->
+  <!-- ========== POPUP TARIK TUNAI ========== -->
   <div class="modal-overlay hidden" id="withdrawModal">
     <div class="modal-card">
       <h3>💵 Tarik Tunai</h3>
@@ -659,6 +827,33 @@
       <input type="number" id="withdrawAmount" min="1" placeholder="Contoh: 100000" />
       <button onclick="withdrawCash()">Tarik</button>
       <button class="btn-secondary" onclick="closeModal('withdrawModal')">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP STRUK ========== -->
+  <div class="modal-overlay hidden" id="receiptModal">
+    <div class="modal-card">
+      <div class="login-logo" style="width:56px;height:56px;font-size:14px;margin:0 auto 10px;">
+        <img src="logo.png" alt="XYZ Wallet" class="logo-img"
+          onerror="var p=this.parentElement; this.remove(); p.textContent='XYZ';" />
+      </div>
+      <h3>Struk Transaksi</h3>
+      <p class="receipt-status">✔ SUKSES</p>
+
+      <div class="receipt-body">
+        <div class="receipt-row"><span>Layanan</span><b id="rTitle">-</b></div>
+        <div class="receipt-row"><span>Nominal</span><b id="rAmount">-</b></div>
+        <div class="receipt-row"><span>Biaya Admin</span><b>Rp 0</b></div>
+        <div class="receipt-row"><span>Sumber Dana</span><b>Saldo XYZ</b></div>
+        <div class="receipt-row"><span>Waktu</span><b id="rTime">-</b></div>
+        <div class="receipt-row"><span>ID Transaksi</span><b id="rId">-</b></div>
+      </div>
+
+      <canvas id="rBarcode" width="220" height="56"></canvas>
+      <p class="qr-note">Simpan struk ini sebagai bukti transaksi (simulasi)</p>
+
+      <button onclick="copyReceipt()">Salin Struk</button>
+      <button class="btn-secondary" onclick="closeModal('receiptModal')">Tutup</button>
     </div>
   </div>
 
@@ -818,6 +1013,30 @@
     let pdamBill = 0;
     let ticketQuote = { type: null, price: 0, label: "" };
     let balanceHidden = localStorage.getItem("xyz_hide_balance") === "1";
+    let cardVisible = false;
+    let currentReceipt = null;
+
+    /* ========== TOAST ========== */
+    function showToast(msg) {
+      const container = document.getElementById("toastContainer");
+      const t = document.createElement("div");
+      const isError = /gagal|salah|tidak|masukkan|cek|isi|pilih|valid|kurang/i.test(msg);
+      t.className = "toast " + (isError ? "toast-error" : "toast-success");
+      t.textContent = msg;
+      container.appendChild(t);
+      setTimeout(function () {
+        t.classList.add("toast-hide");
+        setTimeout(function () { t.remove(); }, 300);
+      }, 3000);
+    }
+    window.alert = function (msg) { showToast(String(msg)); };
+
+    /* ========== SPLASH ========== */
+    setTimeout(function () {
+      const s = document.getElementById("splashScreen");
+      s.classList.add("splash-hide");
+      setTimeout(function () { s.remove(); }, 600);
+    }, 1800);
 
     /* ========== TEMA ========== */
     function setTheme(theme) {
@@ -838,6 +1057,102 @@
       balance = Number(localStorage.getItem("xyz_balance") || 0);
       try { transactions = JSON.parse(localStorage.getItem("xyz_transactions") || "[]"); }
       catch (e) { transactions = []; }
+    }
+
+    /* ========== ID TRANSAKSI ========== */
+    function generateId() {
+      return "XYZ-" + String(Date.now()).slice(-8) + String(Math.floor(100 + Math.random() * 900));
+    }
+
+    function fallbackId(trx, i) {
+      let h = 0;
+      const s = trx.title + "|" + trx.time + "|" + i;
+      for (let c = 0; c < s.length; c++) h = (h * 31 + s.charCodeAt(c)) % 100000000;
+      return "XYZ-" + String(h).padStart(8, "0");
+    }
+
+    /* ========== KARTU VIRTUAL ========== */
+    function getCard() {
+      let card = localStorage.getItem("xyz_card");
+      if (!card) {
+        card = "5312" + String(Math.floor(100000000000 + Math.random() * 900000000000));
+        localStorage.setItem("xyz_card", card);
+      }
+      return card;
+    }
+
+    function renderCard() {
+      const card = getCard();
+      document.getElementById("cardNumber").textContent = cardVisible
+        ? (card.match(/.{1,4}/g) || []).join(" ")
+        : card.substring(0, 4) + " •••• •••• " + card.substring(12);
+    }
+
+    function toggleCardNumber() { cardVisible = !cardVisible; renderCard(); }
+
+    function copyCardNumber() {
+      const card = getCard();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(card).then(function () { alert("Nomor kartu disalin!"); });
+      } else {
+        alert("Nomor kartu: " + card);
+      }
+    }
+
+    /* ========== STRUK ========== */
+    function openReceipt(i) {
+      const trx = transactions[i];
+      if (!trx) return;
+      const id = trx.id || fallbackId(trx, i);
+
+      document.getElementById("rTitle").textContent = trx.title;
+      document.getElementById("rAmount").textContent = formatRupiah(trx.amount);
+      document.getElementById("rTime").textContent = trx.time;
+      document.getElementById("rId").textContent = id;
+
+      currentReceipt = { title: trx.title, amount: formatRupiah(trx.amount), time: trx.time, id: id };
+      drawBarcode(id);
+      document.getElementById("receiptModal").classList.remove("hidden");
+    }
+
+    function drawBarcode(id) {
+      const canvas = document.getElementById("rBarcode");
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#111111";
+
+      let seed = 7;
+      for (let i = 0; i < id.length; i++) seed = (seed * 31 + id.charCodeAt(i)) % 100000;
+      function rand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+
+      let x = 6;
+      while (x < canvas.width - 6) {
+        const w = 1 + Math.floor(rand() * 3);
+        if (rand() > 0.35) ctx.fillRect(x, 6, w, canvas.height - 12);
+        x += w + 2;
+      }
+    }
+
+    function copyReceipt() {
+      if (!currentReceipt) return;
+      const text =
+        "STRUK XYZ WALLET\n" +
+        "--------------------------\n" +
+        "Status  : SUKSES\n" +
+        "Layanan : " + currentReceipt.title + "\n" +
+        "Nominal : " + currentReceipt.amount + "\n" +
+        "Admin   : Rp 0\n" +
+        "Sumber  : Saldo XYZ\n" +
+        "Waktu   : " + currentReceipt.time + "\n" +
+        "ID      : " + currentReceipt.id + "\n" +
+        "--------------------------\n" +
+        "Terima kasih telah menggunakan XYZ Wallet.";
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () { alert("Struk disalin!"); });
+      } else {
+        alert(text);
+      }
     }
 
     /* ========== NAVIGASI ========== */
@@ -973,7 +1288,6 @@
     }
 
     function goDeposit() { switchTab("dompet"); setTimeout(() => document.getElementById("topupAmount").focus(), 100); }
-
     function goTransfer() { switchTab("dompet"); setTimeout(() => document.getElementById("targetName").focus(), 100); }
 
     function goWithdraw() {
@@ -993,11 +1307,11 @@
       });
     }
 
-    function transactionItemHTML(trx) {
+    function transactionItemHTML(trx, i) {
       const amountClass = trx.type === "in" ? "amount-positive" : "amount-negative";
       const sign = trx.type === "in" ? "+" : "-";
       return `
-        <div class="transaction-item">
+        <div class="transaction-item" onclick="openReceipt(${i})" title="Lihat struk">
           <div class="transaction-info">
             <h4>${trx.title}</h4>
             <p>${trx.time}</p>
@@ -1013,13 +1327,13 @@
         list.innerHTML = '<div class="empty-state">Belum ada transaksi</div>';
         homeList.innerHTML = '<div class="empty-state">Belum ada transaksi</div>';
       } else {
-        list.innerHTML = transactions.map(transactionItemHTML).join("");
-        homeList.innerHTML = transactions.slice(0, 3).map(transactionItemHTML).join("");
+        list.innerHTML = transactions.map((t, i) => transactionItemHTML(t, i)).join("");
+        homeList.innerHTML = transactions.slice(0, 3).map((t, i) => transactionItemHTML(t, i)).join("");
       }
     }
 
     function addTransaction(title, amount) {
-      transactions.unshift({ title, time: new Date().toLocaleString("id-ID"), amount, type: "out" });
+      transactions.unshift({ id: generateId(), title, time: new Date().toLocaleString("id-ID"), amount, type: "out" });
       updateBalanceDisplay(); renderTransactions(); saveState();
     }
 
@@ -1028,7 +1342,7 @@
       const amount = Number(amountInput.value);
       if (!amount || amount <= 0) { alert("Masukkan nominal top up yang valid."); return; }
       balance += amount;
-      transactions.unshift({ title: "Top Up Saldo", time: new Date().toLocaleString("id-ID"), amount, type: "in" });
+      transactions.unshift({ id: generateId(), title: "Top Up Saldo", time: new Date().toLocaleString("id-ID"), amount, type: "in" });
       amountInput.value = "";
       updateBalanceDisplay(); renderTransactions(); saveState();
       alert("Top up berhasil!");
@@ -1269,6 +1583,7 @@
     loadState();
     updateBalanceDisplay();
     renderTransactions();
+    renderCard();
   </script>
 </body>
 </html>
