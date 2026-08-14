@@ -8,8 +8,68 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Arial, sans-serif; }
 
+    /* ========== TEMA: UNGU (DEFAULT) ========== */
+    :root {
+      --bg1:#0b0514; --bg2:#1a0b2e;
+      --surface:#140a24; --surface2:#1d0f33; --surface3:#251540;
+      --field-bg:#10071d; --field-border:#4c2a85;
+      --text-main:#f3e8ff; --text-dim:#a794c4; --label:#c9a6ff;
+      --accent:#a855f7; --accent-soft:#c084fc; --accent-light:#e9d5ff;
+      --grad1:#2e1065; --grad2:#7c3aed; --grad3:#a855f7;
+      --glow:rgba(168,85,247,0.45); --glow-strong:rgba(168,85,247,0.6); --glow-soft:rgba(139,92,246,0.25);
+      --border-soft:rgba(192,132,252,0.2); --border-mid:rgba(192,132,252,0.35); --border-light:rgba(233,213,255,0.35);
+      --nav-idle:#7e6a9c; --icon-stroke:#7c3aed; --icon-circle-bg:#f3e8ff;
+      --secondary-bg:#2a1745; --secondary-text:#b8a3d9;
+      --note-bg:rgba(168,85,247,0.10);
+    }
+
+    /* ========== TEMA: BIRU ========== */
+    body[data-theme="biru"] {
+      --bg1:#050d1a; --bg2:#0a1f3d;
+      --surface:#0a1930; --surface2:#0d2242; --surface3:#102a4c;
+      --field-bg:#071427; --field-border:#1e4976;
+      --text-main:#eaf4ff; --text-dim:#8aa3c0; --label:#8ecbff;
+      --accent:#4da3ff; --accent-soft:#7cc0ff; --accent-light:#bfe0ff;
+      --grad1:#0a2a5e; --grad2:#1d5bbf; --grad3:#4da3ff;
+      --glow:rgba(77,163,255,0.45); --glow-strong:rgba(77,163,255,0.6); --glow-soft:rgba(61,142,255,0.25);
+      --border-soft:rgba(124,192,255,0.2); --border-mid:rgba(124,192,255,0.35); --border-light:rgba(191,224,255,0.35);
+      --nav-idle:#5f7ea6; --icon-stroke:#1d5bbf; --icon-circle-bg:#eaf4ff;
+      --secondary-bg:#16304f; --secondary-text:#9fb6d4;
+      --note-bg:rgba(77,163,255,0.10);
+    }
+
+    /* ========== TEMA: MERAH ========== */
+    body[data-theme="merah"] {
+      --bg1:#150507; --bg2:#2a0a10;
+      --surface:#200a0e; --surface2:#2d0f15; --surface3:#3a141b;
+      --field-bg:#180609; --field-border:#7f1d1d;
+      --text-main:#fee2e2; --text-dim:#c09494; --label:#fca5a5;
+      --accent:#ef4444; --accent-soft:#f87171; --accent-light:#fecaca;
+      --grad1:#450a0a; --grad2:#b91c1c; --grad3:#ef4444;
+      --glow:rgba(239,68,68,0.45); --glow-strong:rgba(239,68,68,0.6); --glow-soft:rgba(185,28,28,0.25);
+      --border-soft:rgba(248,113,113,0.2); --border-mid:rgba(248,113,113,0.35); --border-light:rgba(254,202,202,0.35);
+      --nav-idle:#9c6a6a; --icon-stroke:#b91c1c; --icon-circle-bg:#fee2e2;
+      --secondary-bg:#451a1a; --secondary-text:#d9a3a3;
+      --note-bg:rgba(239,68,68,0.10);
+    }
+
+    /* ========== TEMA: EMAS ========== */
+    body[data-theme="emas"] {
+      --bg1:#0d0a03; --bg2:#1f1603;
+      --surface:#171104; --surface2:#221a08; --surface3:#2d230c;
+      --field-bg:#120d03; --field-border:#7a5c14;
+      --text-main:#fef9e7; --text-dim:#c2ab7a; --label:#e5c56b;
+      --accent:#f59e0b; --accent-soft:#fbbf24; --accent-light:#fde68a;
+      --grad1:#3a2a08; --grad2:#ca8a04; --grad3:#fbbf24;
+      --glow:rgba(245,158,11,0.45); --glow-strong:rgba(251,191,36,0.6); --glow-soft:rgba(202,138,4,0.25);
+      --border-soft:rgba(251,191,36,0.2); --border-mid:rgba(251,191,36,0.35); --border-light:rgba(253,230,138,0.35);
+      --nav-idle:#9c8a5f; --icon-stroke:#a16207; --icon-circle-bg:#fef9e7;
+      --secondary-bg:#3a2d12; --secondary-text:#d9c393;
+      --note-bg:rgba(245,158,11,0.10);
+    }
+
     body {
-      background: linear-gradient(160deg, #0b0514, #1a0b2e);
+      background: linear-gradient(160deg, var(--bg1), var(--bg2));
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -23,67 +83,67 @@
 
     .login-card {
       width: 100%; max-width: 420px;
-      background: #140a24;
-      border: 1px solid rgba(192,132,252,0.35);
+      background: var(--surface);
+      border: 1px solid var(--border-mid);
       border-radius: 24px;
       padding: 32px 24px;
-      box-shadow: 0 0 50px rgba(139,92,246,0.25);
+      box-shadow: 0 0 50px var(--glow-soft);
       text-align: center; height: fit-content;
     }
 
     .login-logo {
       width: 70px; height: 70px; border-radius: 20px;
-      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
       color: white; font-weight: bold; font-size: 22px;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 12px;
-      box-shadow: 0 0 30px rgba(168,85,247,0.55);
+      box-shadow: 0 0 30px var(--glow-strong);
     }
 
-    .login-card h2 { margin-bottom: 4px; color: #f3e8ff; letter-spacing: 1px; }
+    .login-card h2 { margin-bottom: 4px; color: var(--text-main); letter-spacing: 1px; }
     .login-subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 24px; }
-    .login-card label { display: block; text-align: left; font-size: 13px; color: #c9a6ff; margin-bottom: 6px; }
+    .login-card label { display: block; text-align: left; font-size: 13px; color: var(--label); margin-bottom: 6px; }
 
     .login-card input {
       width: 100%; padding: 12px;
-      border: 1px solid #4c2a85; background: #10071d; color: #f3e8ff;
+      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 14px; font-size: 14px;
     }
 
     .login-card button {
       width: 100%; border: none; border-radius: 12px; padding: 13px;
       font-size: 14px; font-weight: bold; cursor: pointer;
-      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
       color: white;
-      box-shadow: 0 0 20px rgba(168,85,247,0.45);
+      box-shadow: 0 0 20px var(--glow);
     }
 
     .otp-demo-note {
-      background: rgba(168,85,247,0.10);
-      border: 1px dashed #a855f7; color: #d8b4fe;
+      background: var(--note-bg);
+      border: 1px dashed var(--accent); color: var(--accent-light);
       border-radius: 12px; padding: 10px; font-size: 12px; margin-bottom: 14px;
       text-align: left;
     }
 
     /* ========== MODAL ========== */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(8,3,16,0.8);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.78);
       display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
     }
 
     .modal-card {
-      background: #140a24;
-      border: 1px solid rgba(192,132,252,0.35);
+      background: var(--surface);
+      border: 1px solid var(--border-mid);
       border-radius: 20px; padding: 24px; width: 100%; max-width: 340px; text-align: center;
-      box-shadow: 0 0 50px rgba(139,92,246,0.3);
+      box-shadow: 0 0 50px var(--glow-soft);
       max-height: 90vh; overflow-y: auto;
     }
 
-    .modal-card h3 { margin-bottom: 14px; color: #f3e8ff; letter-spacing: 1px; }
+    .modal-card h3 { margin-bottom: 14px; color: var(--text-main); letter-spacing: 1px; }
 
     .modal-card input {
       width: 100%; padding: 12px;
-      border: 1px solid #4c2a85; background: #10071d; color: #f3e8ff;
+      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 12px; font-size: 14px;
     }
 
@@ -92,14 +152,14 @@
     .modal-card button {
       width: 100%; border: none; border-radius: 12px; padding: 12px;
       font-size: 14px; font-weight: bold; cursor: pointer;
-      background: linear-gradient(135deg, #7c3aed, #a855f7); color: white;
+      background: linear-gradient(135deg, var(--grad2), var(--grad3)); color: white;
     }
 
-    .btn-secondary { background: #2a1745 !important; color: #b8a3d9 !important; margin-top: 8px; box-shadow: none !important; }
+    .btn-secondary { background: var(--secondary-bg) !important; color: var(--secondary-text) !important; margin-top: 8px; box-shadow: none !important; }
 
     select {
       width: 100%; padding: 12px;
-      border: 1px solid #4c2a85; background: #10071d; color: #f3e8ff;
+      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 12px; font-size: 14px;
     }
 
@@ -108,50 +168,61 @@
     /* ========== APLIKASI UTAMA ========== */
     .app {
       width: 100%; max-width: 420px;
-      background: #140a24;
-      border: 1px solid rgba(192,132,252,0.35);
+      background: var(--surface);
+      border: 1px solid var(--border-mid);
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 0 50px rgba(139,92,246,0.25);
+      box-shadow: 0 0 50px var(--glow-soft);
       height: fit-content;
     }
 
     .header {
-      background: linear-gradient(135deg, #2e1065, #7c3aed 55%, #a855f7);
+      background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3));
       color: white; padding: 24px 20px;
     }
 
     .header h1 {
       font-size: 22px; letter-spacing: 2px; text-transform: uppercase;
-      text-shadow: 0 0 14px rgba(192,132,252,0.55);
+      text-shadow: 0 0 14px var(--glow-strong);
     }
 
     .datetime {
       margin-top: 6px; font-size: 13px; opacity: 0.95; letter-spacing: 1px;
       font-family: Consolas, Menlo, monospace;
-      color: #e9d5ff;
+      color: var(--accent-light);
     }
 
+    /* KARTU SALDO: SALDO DI ATAS KANAN + 3 TOMBOL DI BAWAH */
     .balance-card {
       margin-top: 18px; background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(233,213,255,0.35);
+      border: 1px solid var(--border-light);
       border-radius: 18px; padding: 18px;
-      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      display: flex; flex-direction: column; gap: 14px;
     }
 
-    .balance-left { flex: 1; text-align: left; }
-    .balance-label { font-size: 12px; opacity: 0.85; margin-bottom: 6px; letter-spacing: 2px; text-transform: uppercase; }
+    .balance-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+
+    .balance-label { font-size: 12px; opacity: 0.85; letter-spacing: 2px; text-transform: uppercase; }
+
+    .balance-right { display: flex; align-items: center; gap: 8px; }
 
     .balance-value {
-      font-size: 30px; font-weight: bold;
+      font-size: 26px; font-weight: bold;
       font-family: Consolas, Menlo, monospace;
-      text-shadow: 0 0 16px rgba(192,132,252,0.75);
+      text-shadow: 0 0 16px var(--glow-strong);
     }
+
+    .eye-btn {
+      width: auto; background: rgba(255,255,255,0.15); border: none;
+      border-radius: 8px; padding: 5px; color: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eye-btn:hover { background: rgba(255,255,255,0.3); }
 
     .balance-actions { display: flex; gap: 10px; }
 
     .action-btn {
-      width: 80px; background: rgba(255,255,255,0.12); border: 1px solid rgba(233,213,255,0.35);
+      flex: 1; width: auto; background: rgba(255,255,255,0.12); border: 1px solid var(--border-light);
       border-radius: 14px; padding: 10px 6px; color: white;
       display: flex; flex-direction: column; align-items: center; gap: 5px;
       cursor: pointer; font-size: 11px; font-weight: bold;
@@ -159,15 +230,18 @@
     .action-btn:hover { background: rgba(255,255,255,0.22); }
 
     .icon-circle {
-      width: 34px; height: 34px; background: #f3e8ff; border-radius: 50%;
+      width: 34px; height: 34px; background: var(--icon-circle-bg); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 14px rgba(168,85,247,0.6);
+      box-shadow: 0 0 14px var(--glow-strong);
     }
 
-    .page-header { background: linear-gradient(135deg, #2e1065, #7c3aed 55%, #a855f7); color: white; padding: 20px; }
+    .icon-circle svg { stroke: var(--icon-stroke); }
+    .ppob-item svg { stroke: var(--accent-soft); }
+
+    .page-header { background: linear-gradient(135deg, var(--grad1), var(--grad2) 55%, var(--grad3)); color: white; padding: 20px; }
     .page-header h2 {
       font-size: 20px; letter-spacing: 2px; text-transform: uppercase;
-      text-shadow: 0 0 14px rgba(192,132,252,0.55);
+      text-shadow: 0 0 14px var(--glow-strong);
     }
 
     .content { padding: 20px; }
@@ -175,31 +249,31 @@
     .home-section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .home-section-head .section-title { margin: 0; }
 
-    .link-btn { width: auto; background: none; color: #c084fc; font-size: 12px; padding: 0; }
+    .link-btn { width: auto; background: none; color: var(--accent-soft); font-size: 12px; padding: 0; }
 
-    .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: #f3e8ff; letter-spacing: 1px; }
+    .section-title { font-size: 15px; font-weight: bold; margin-bottom: 12px; color: var(--text-main); letter-spacing: 1px; }
 
     .ppob-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
 
     .ppob-item {
-      background: #1d0f33; border: 1px solid rgba(192,132,252,0.2);
-      border-radius: 14px; padding: 10px 4px; color: #e9d5ff;
+      background: var(--surface2); border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 10px 4px; color: var(--accent-light);
       display: flex; flex-direction: column; align-items: center; gap: 6px;
       cursor: pointer; font-size: 10px; font-weight: bold;
     }
-    .ppob-item:hover { border-color: #c084fc; box-shadow: 0 0 14px rgba(168,85,247,0.35); }
+    .ppob-item:hover { border-color: var(--accent-soft); box-shadow: 0 0 14px var(--glow); }
     .ppob-item svg { width: 20px; height: 20px; }
 
     .card {
-      background: #1d0f33; border: 1px solid rgba(192,132,252,0.2);
+      background: var(--surface2); border: 1px solid var(--border-soft);
       border-radius: 16px; padding: 16px; margin-bottom: 16px;
     }
 
-    label { display: block; font-size: 13px; color: #c9a6ff; margin-bottom: 6px; text-align: left; }
+    label { display: block; font-size: 13px; color: var(--label); margin-bottom: 6px; text-align: left; }
 
     input {
       width: 100%; padding: 12px;
-      border: 1px solid #4c2a85; background: #10071d; color: #f3e8ff;
+      border: 1px solid var(--field-border); background: var(--field-bg); color: var(--text-main);
       border-radius: 12px; margin-bottom: 12px; font-size: 14px;
     }
 
@@ -215,24 +289,24 @@
     }
 
     .btn-transfer {
-      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
       color: white;
-      box-shadow: 0 0 16px rgba(168,85,247,0.45);
+      box-shadow: 0 0 16px var(--glow);
     }
 
-    .btn-outline { background: transparent; color: #c084fc; border: 2px solid #c084fc; margin-bottom: 10px; }
+    .btn-outline { background: transparent; color: var(--accent-soft); border: 2px solid var(--accent-soft); margin-bottom: 10px; }
 
     .transaction-list { max-height: 380px; overflow-y: auto; }
 
     .transaction-item {
       display: flex; justify-content: space-between; align-items: center;
       padding: 12px; border-radius: 12px;
-      background: #251540; border: 1px solid rgba(192,132,252,0.15);
+      background: var(--surface3); border: 1px solid var(--border-soft);
       margin-bottom: 10px;
     }
 
-    .transaction-info h4 { font-size: 14px; margin-bottom: 4px; color: #f3e8ff; }
-    .transaction-info p { font-size: 12px; color: #a794c4; }
+    .transaction-info h4 { font-size: 14px; margin-bottom: 4px; color: var(--text-main); }
+    .transaction-info p { font-size: 12px; color: var(--text-dim); }
 
     .amount-positive { color: #34d399; font-weight: bold; font-family: Consolas, Menlo, monospace; }
     .amount-negative { color: #fb7185; font-weight: bold; font-family: Consolas, Menlo, monospace; }
@@ -245,24 +319,43 @@
     .profile-card { text-align: center; }
     .profile-avatar {
       width: 64px; height: 64px; border-radius: 50%;
-      background: linear-gradient(135deg, #7c3aed, #a855f7);
+      background: linear-gradient(135deg, var(--grad2), var(--grad3));
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 10px; color: white;
-      box-shadow: 0 0 24px rgba(168,85,247,0.55);
+      box-shadow: 0 0 24px var(--glow-strong);
     }
-    .profile-card h3 { color: #f3e8ff; margin-bottom: 4px; font-family: Consolas, Menlo, monospace; }
+    .profile-card h3 { color: var(--text-main); margin-bottom: 4px; font-family: Consolas, Menlo, monospace; }
     .profile-card p { font-size: 12px; color: #94a3b8; }
 
+    /* ========== PEMILIH TEMA ========== */
+    .theme-grid { display: flex; gap: 10px; }
+
+    .theme-btn {
+      flex: 1; width: auto; padding: 10px 6px; border-radius: 12px;
+      border: 2px solid transparent;
+      background: var(--surface3); color: var(--text-main);
+      font-size: 11px; font-weight: bold; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+
+    .theme-btn.active { border-color: var(--accent-soft); box-shadow: 0 0 12px var(--glow); }
+
+    .swatch { width: 22px; height: 22px; border-radius: 50%; }
+    .swatch-ungu { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .swatch-biru { background: linear-gradient(135deg, #1d5bbf, #4da3ff); }
+    .swatch-merah { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+    .swatch-emas { background: linear-gradient(135deg, #a16207, #fbbf24); }
+
     /* ========== BOTTOM NAVIGATION ========== */
-    .bottom-nav { display: flex; border-top: 1px solid rgba(192,132,252,0.25); background: #10071d; }
+    .bottom-nav { display: flex; border-top: 1px solid var(--border-soft); background: var(--field-bg); }
 
     .nav-item {
       flex: 1; background: none; border: none; padding: 10px 4px 8px;
       display: flex; flex-direction: column; align-items: center; gap: 4px;
-      font-size: 9px; color: #7e6a9c; cursor: pointer; font-weight: bold; letter-spacing: 1px;
+      font-size: 9px; color: var(--nav-idle); cursor: pointer; font-weight: bold; letter-spacing: 1px;
     }
 
-    .nav-item.active { color: #c084fc; text-shadow: 0 0 12px rgba(192,132,252,0.7); }
+    .nav-item.active { color: var(--accent-soft); text-shadow: 0 0 12px var(--glow-strong); }
     .nav-item svg { width: 20px; height: 20px; }
   </style>
 </head>
@@ -315,15 +408,30 @@
         <div class="datetime" id="datetimeDisplay">Memuat waktu...</div>
 
         <div class="balance-card">
-          <div class="balance-left">
+          <!-- BARIS ATAS: LABEL KIRI, SALDO + ICON MATA KANAN -->
+          <div class="balance-top">
             <div class="balance-label">Saldo Anda</div>
-            <div class="balance-value" id="balanceDisplay">Rp 0</div>
+            <div class="balance-right">
+              <div class="balance-value" id="balanceDisplay">Rp 0</div>
+              <button class="eye-btn" onclick="toggleHideBalance()" title="Sembunyikan / tampilkan saldo">
+                <svg id="eyeOpen" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg id="eyeClosed" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3l18 18"/>
+                  <path d="M10.6 5.1A10 10 0 0 1 12 5c7 0 10 7 10 7a17.6 17.6 0 0 1-2.2 3.2"/>
+                  <path d="M6.6 6.6C3.8 8.5 2 12 2 12s3 7 10 7c1.8 0 3.4-.4 4.8-1.1"/>
+                  <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>
+                </svg>
+              </button>
+            </div>
           </div>
 
+          <!-- BARIS BAWAH: DEPOSIT / WITHDRAW / TRANSFER -->
           <div class="balance-actions">
             <button class="action-btn" onclick="goDeposit()" title="Deposit">
               <span class="icon-circle">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M5 21h14"/>
                 </svg>
               </span>
@@ -332,11 +440,20 @@
 
             <button class="action-btn" onclick="goWithdraw()" title="Withdraw">
               <span class="icon-circle">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 21V9"/><path d="M6 13l6-6 6 6"/><path d="M5 3h14"/>
                 </svg>
               </span>
               Withdraw
+            </button>
+
+            <button class="action-btn" onclick="goTransfer()" title="Transfer">
+              <span class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/>
+                </svg>
+              </span>
+              Transfer
             </button>
           </div>
         </div>
@@ -346,42 +463,42 @@
         <div class="section-title">Pembayaran & Tagihan</div>
         <div class="ppob-grid">
           <button class="ppob-item" onclick="openListrik()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
             Listrik
           </button>
 
           <button class="ppob-item" onclick="openPdam()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>
             PDAM
           </button>
 
           <button class="ppob-item" onclick="openPulsa()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
             Pulsa
           </button>
 
           <button class="ppob-item" onclick="openXyzpay()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
             XYZ Pay
           </button>
 
           <button class="ppob-item" onclick="openEmoney()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
             E-Money
           </button>
 
           <button class="ppob-item" onclick="openTicket('pesawat')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
             Pesawat
           </button>
 
           <button class="ppob-item" onclick="openTicket('kereta')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 9h14"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/><path d="M8 16l-2 4"/><path d="M16 16l2 4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="13" rx="3"/><path d="M5 9h14"/><circle cx="9.5" cy="12.5" r="1"/><circle cx="14.5" cy="12.5" r="1"/><path d="M8 16l-2 4"/><path d="M16 16l2 4"/></svg>
             Kereta
           </button>
 
           <button class="ppob-item" onclick="openTicket('bus')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16"/><circle cx="8.5" cy="17.5" r="1.5"/><circle cx="15.5" cy="17.5" r="1.5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16"/><circle cx="8.5" cy="17.5" r="1.5"/><circle cx="15.5" cy="17.5" r="1.5"/></svg>
             Bus
           </button>
         </div>
@@ -463,6 +580,25 @@
           <p>Pengguna XYZ Wallet</p>
         </div>
 
+        <!-- PEMILIH TEMA -->
+        <div class="card">
+          <div class="section-title" style="margin-bottom: 10px;">Tema Aplikasi</div>
+          <div class="theme-grid">
+            <button class="theme-btn active" id="theme-ungu" onclick="setTheme('ungu')">
+              <span class="swatch swatch-ungu"></span>Ungu
+            </button>
+            <button class="theme-btn" id="theme-biru" onclick="setTheme('biru')">
+              <span class="swatch swatch-biru"></span>Biru
+            </button>
+            <button class="theme-btn" id="theme-merah" onclick="setTheme('merah')">
+              <span class="swatch swatch-merah"></span>Merah
+            </button>
+            <button class="theme-btn" id="theme-emas" onclick="setTheme('emas')">
+              <span class="swatch swatch-emas"></span>Emas
+            </button>
+          </div>
+        </div>
+
         <button class="btn-outline" onclick="openPinChange()">Ganti PIN Transaksi</button>
         <button class="btn-transfer" onclick="logout()">Keluar</button>
       </div>
@@ -512,6 +648,17 @@
       <input type="password" id="confirmPinChangeInput" class="pin-input" maxlength="6" placeholder="Ulangi PIN baru" />
       <button onclick="changePin()">Simpan</button>
       <button class="btn-secondary" onclick="closePinChange()">Batal</button>
+    </div>
+  </div>
+
+  <!-- ========== POPUP TARIK TUNAI (WITHDRAW) ========== -->
+  <div class="modal-overlay hidden" id="withdrawModal">
+    <div class="modal-card">
+      <h3>💵 Tarik Tunai</h3>
+      <label>Nominal Tarik</label>
+      <input type="number" id="withdrawAmount" min="1" placeholder="Contoh: 100000" />
+      <button onclick="withdrawCash()">Tarik</button>
+      <button class="btn-secondary" onclick="closeModal('withdrawModal')">Batal</button>
     </div>
   </div>
 
@@ -670,6 +817,16 @@
     let pendingAction = null;
     let pdamBill = 0;
     let ticketQuote = { type: null, price: 0, label: "" };
+    let balanceHidden = localStorage.getItem("xyz_hide_balance") === "1";
+
+    /* ========== TEMA ========== */
+    function setTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("xyz_theme", theme);
+      document.querySelectorAll(".theme-btn").forEach(b => b.classList.remove("active"));
+      const btn = document.getElementById("theme-" + theme);
+      if (btn) btn.classList.add("active");
+    }
 
     /* ========== DATA LOKAL ========== */
     function saveState() {
@@ -785,6 +942,13 @@
     }
     function closePinModal() { document.getElementById("pinModal").classList.add("hidden"); }
 
+    /* ========== SEMBUNYIKAN SALDO ========== */
+    function toggleHideBalance() {
+      balanceHidden = !balanceHidden;
+      localStorage.setItem("xyz_hide_balance", balanceHidden ? "1" : "0");
+      updateBalanceDisplay();
+    }
+
     /* ========== JAM REAL TIME ========== */
     function updateDateTime() {
       const now = new Date();
@@ -800,10 +964,34 @@
 
     /* ========== DOMPET ========== */
     function formatRupiah(number) { return "Rp " + number.toLocaleString("id-ID"); }
-    function updateBalanceDisplay() { document.getElementById("balanceDisplay").textContent = formatRupiah(balance); }
+
+    function updateBalanceDisplay() {
+      const el = document.getElementById("balanceDisplay");
+      el.textContent = balanceHidden ? "Rp ••••••" : formatRupiah(balance);
+      document.getElementById("eyeOpen").classList.toggle("hidden", balanceHidden);
+      document.getElementById("eyeClosed").classList.toggle("hidden", !balanceHidden);
+    }
 
     function goDeposit() { switchTab("dompet"); setTimeout(() => document.getElementById("topupAmount").focus(), 100); }
-    function goWithdraw() { switchTab("dompet"); setTimeout(() => document.getElementById("targetName").focus(), 100); }
+
+    function goTransfer() { switchTab("dompet"); setTimeout(() => document.getElementById("targetName").focus(), 100); }
+
+    function goWithdraw() {
+      document.getElementById("withdrawAmount").value = "";
+      document.getElementById("withdrawModal").classList.remove("hidden");
+    }
+
+    function withdrawCash() {
+      const amount = Number(document.getElementById("withdrawAmount").value);
+      if (!amount || amount <= 0) { alert("Masukkan nominal tarik tunai yang valid."); return; }
+      if (amount > balance) { alert("Saldo tidak cukup."); return; }
+      requestPin(function () {
+        balance -= amount;
+        addTransaction("Tarik Tunai", amount);
+        closeModal("withdrawModal");
+        alert("Tarik tunai " + formatRupiah(amount) + " berhasil!");
+      });
+    }
 
     function transactionItemHTML(trx) {
       const amountClass = trx.type === "in" ? "amount-positive" : "amount-negative";
@@ -1077,6 +1265,7 @@
     }
 
     /* ========== INIT ========== */
+    setTheme(localStorage.getItem("xyz_theme") || "ungu");
     loadState();
     updateBalanceDisplay();
     renderTransactions();
